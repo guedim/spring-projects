@@ -1,8 +1,0 @@
-org\guedim\externalizeconfig\ExternalizeConfigApplication.class
-org\guedim\externalizeconfig\properties\ApplicationProperties.class
-org\guedim\externalizeconfig\properties\AwsProperties$S3Properties.class
-org\guedim\externalizeconfig\properties\AwsProperties.class
-org\guedim\externalizeconfig\properties\AwsProperties$FirehoseProperties.class
-org\guedim\externalizeconfig\configuration\ApplicationConfig.class
-org\guedim\externalizeconfig\utils\Serializer.class
-org\guedim\externalizeconfig\controllers\HomeController.class
