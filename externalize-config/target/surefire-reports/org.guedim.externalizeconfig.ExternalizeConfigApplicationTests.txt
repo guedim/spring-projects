@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.guedim.externalizeconfig.ExternalizeConfigApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.643 sec - in org.guedim.externalizeconfig.ExternalizeConfigApplicationTests

@@ -1,0 +1,16 @@
+application:
+  property1: "Value 1"
+  property2: "Value 2"
+  property3: "Value 3"
+  property4:
+  property5:
+
+aws:
+  s3:
+    region: "us-west-2"
+  firehose:
+    region: "us-west-2"
+
+server:
+  port: 8080
+

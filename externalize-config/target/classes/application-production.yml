@@ -1,0 +1,10 @@
+application:
+  property4: "Production environment specific value"
+  property5: "Production environment specific value"
+
+aws:
+  s3:
+    bucket: "prod-bucket"
+  firehose:
+    deliveryStream: "prod-deliverystream"
+
