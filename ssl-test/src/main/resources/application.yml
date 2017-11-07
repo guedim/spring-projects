@@ -1,0 +1,5 @@
+# application.yml
+
+application:
+    hostname: google.com
+    port: 443
