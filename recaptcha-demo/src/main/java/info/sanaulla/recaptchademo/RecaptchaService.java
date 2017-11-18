@@ -21,8 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 public class RecaptchaService {
 
 
-  private static Logger log = LoggerFactory.getLogger(RecaptchaService.class);
-
   @Value("${google.recaptcha.secret}")
   String recaptchaSecret;
   private static final String GOOGLE_RECAPTCHA_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
