@@ -1,0 +1,37 @@
+version: '2.1'
+
+services:
+  consul:
+    command: -server -bootstrap -advertise 192.168.99.100
+    image: progrium/consul:latest
+    hostname: 192.168.99.100.xip.io
+    ports:
+      - "8300:8300"
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:53/udp"
+
+  portafolio-service:
+    image: guedim/portafolio:0.0.1
+    ports:
+      - "57116:57116"
+    environment:
+      CONSUL_HOST: 192.168.99.100
+      DISCOVERY_ENABLED: "true"
+    depends_on:
+      - consul
+    links:
+      - consul
+  pricing-service:
+    image: guedim/pricing:0.0.1
+    ports:
+      - "57216:57216"
+    environment:
+      CONSUL_HOST: 192.168.99.100
+      DISCOVERY_ENABLED: "true"
+    depends_on:
+      - consul
+      - portafolio-service
+    links:
+      - consul
+      - portafolio-service

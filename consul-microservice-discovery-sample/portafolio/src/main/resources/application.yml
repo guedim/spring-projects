@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: portfolio-service
+  cloud:
+    consul:
+      host: ${CONSUL_HOST}
+      port: 8500
+
+server:
+  port: 57116
