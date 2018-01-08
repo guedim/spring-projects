@@ -4,7 +4,7 @@ services:
   consul:
     command: -server -bootstrap -advertise 192.168.99.100
     image: progrium/consul:latest
-    hostname: 192.168.99.100.xip.io
+    hostname: 127.0.0.1.xip.io
     ports:
       - "8300:8300"
       - "8400:8400"
@@ -16,7 +16,7 @@ services:
     ports:
       - "57116:57116"
     environment:
-      CONSUL_HOST: 192.168.99.100
+      CONSUL_HOST: consul
       DISCOVERY_ENABLED: "true"
     depends_on:
       - consul
@@ -27,7 +27,7 @@ services:
     ports:
       - "57216:57216"
     environment:
-      CONSUL_HOST: 192.168.99.100
+      CONSUL_HOST: consul
       DISCOVERY_ENABLED: "true"
     depends_on:
       - consul
