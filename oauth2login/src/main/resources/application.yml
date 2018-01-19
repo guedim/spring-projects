@@ -1,0 +1,25 @@
+spring:
+ thymeleaf:
+   cache: false
+ security:
+   oauth2:
+     client:
+       registration:
+         google:
+           client-id: 175510239488-9enu3fk4j2ojkqo37m2jtguvbq31etfb.apps.googleusercontent.com
+           client-secret: ozK9OHy1G9bLNmQ90DUl7dNs
+         github:
+           client-id: 88f767cd90d34f0b0908
+           client-secret: 3f6274adfcabc0359f33a3e57ce32f04c7312181
+         facebook:
+           client-id: <your client id>
+           client-secret: <your client secret>
+         okta:
+           client-id: 0oadot51ctSY6p0GX0h7
+           client-secret: ai4SRqsIpQq8X1SVl9BGKV1KDVhSsloO9ePrfQkm
+       provider:
+         okta:
+           authorization-uri: https://dev-567179.oktapreview.com/oauth2/default/v1/authorize
+           token-uri: https://dev-567179.oktapreview.com/oauth2/default/v1/token
+           user-info-uri: https://dev-567179.oktapreview.com/oauth2/default/v1/userinfo
+           jwk-set-uri: https://dev-567179.oktapreview.com/oauth2/default/v1/keys
