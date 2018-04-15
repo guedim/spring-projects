@@ -1,0 +1,732 @@
+{
+	"variables": [],
+	"info": {
+		"name": "LemonDemo",
+		"_postman_id": "298e67ce-5d21-7d86-8230-b784c97f2762",
+		"description": "Sample end-points for the lemon demo application, which uses spring-lemon",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Ping",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Ping status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Ping receives the XSRF-TOKEN cookie\"] = postman.getResponseCookie(\"XSRF-TOKEN\");",
+							"tests[\"Ping receives the XSRF-TOKEN header\"] = postman.getResponseHeader(\"X-XSRF-TOKEN\");",
+							"",
+							"// Set XSRF Token ",
+							"postman.setEnvironmentVariable(\"xsrfToken\", postman.getResponseHeader(\"X-XSRF-TOKEN\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/ping",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Sends a get request to the server. The server responds with a `200`.\n\nThis is useful for fetching the CSRF cookie after an event that would have changed the CSRF token, e.g. _login_. See [here](https://naturalprogrammer.gitbooks.io/spring-lemon-getting-started/content/api_documentation.html#csrf) for more details.\n\nIn summary, you may need to call this after events related to Spring Security, like login and logout."
+			},
+			"response": []
+		},
+		{
+			"name": "Get context",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Get context status code is 200\"] = responseCode.code === 200;",
+							"",
+							"// Set userId",
+							"var user = JSON.parse(responseBody).user;",
+							"if (user)",
+							"    postman.setEnvironmentVariable(\"userId\", user.id);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/context",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Gets useful application properties and current user data.\n\nCall this at start-up of a JavaScript application to fetch useful application properties and current-user data."
+			},
+			"response": []
+		},
+		{
+			"name": "Sign up",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Signup status code is 201\"] = responseCode.code === 201;",
+							"",
+							"// Set userId and email",
+							"postman.setEnvironmentVariable(\"userId\", JSON.parse(responseBody).id);",
+							"postman.setEnvironmentVariable(\"userEmail\", JSON.parse(responseBody).email);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/signup",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrfToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{$guid}}@example.com\",\r\n    \"password\": \"user1!\",\r\n    \"name\": \"Sample User\"\r\n}"
+				},
+				"description": "Signs a new user up, and logs him in. A verification mail is sent to his email."
+			},
+			"response": []
+		},
+		{
+			"name": "Resend verification mail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Resend verification mail status code is 200\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/users/{{userId}}/resend-verification-mail",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "A verification mail is sent to users upon sign up. But, sometimes they may miss it. So, when a unverified user signs in, you may like to show him a button or something to resend the verification mail. Clicking on that would send a request to your API like this:"
+			},
+			"response": []
+		},
+		{
+			"name": "Verify User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Verify user status code is 200\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/users/2f7469a0-b45d-4fbc-b073-da54607f87a3/verify",
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrfToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "After a user signs up, he receives a verification mail. The mail contains a link with an embedded verificationCode. Clicking on it takes the user to the front-end application, where he is first asked to login if he is not already, and then click a verify button. On clicking verify, a POST request is sent like this."
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Logout status code is 200\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/logout",
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrfToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "Logs a user out."
+			},
+			"response": []
+		},
+		{
+			"name": "Ping 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Set XSRF Token ",
+							"postman.setEnvironmentVariable(\"xsrfToken\", postman.getResponseHeader(\"X-XSRF-TOKEN\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/ping",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Sends a get request to the server. The server responds with a `200`.\n\nThis is useful for fetching the CSRF cookie after an event that would have changed the CSRF token, e.g. _login_. See [here](https://naturalprogrammer.gitbooks.io/spring-lemon-getting-started/content/api_documentation.html#csrf) for more details.\n\nIn summary, you may need to call this after events related to Spring Security, like login and logout."
+			},
+			"response": []
+		},
+		{
+			"name": "Admin login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Login status code is 200\"] = responseCode.code === 200;",
+							"",
+							"// Set adminId",
+							"postman.setEnvironmentVariable(\"adminId\", JSON.parse(responseBody).id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrfToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "admin@example.com",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "admin!",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "rememberMe",
+							"value": "false",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Logs the user in. To remember the user for 15 days, have the rememberMe parameter as true."
+			},
+			"response": []
+		},
+		{
+			"name": "Ping 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Set XSRF Token ",
+							"postman.setEnvironmentVariable(\"xsrfToken\", postman.getResponseHeader(\"X-XSRF-TOKEN\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/ping",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Sends a get request to the server. The server responds with a `200`.\n\nThis is useful for fetching the CSRF cookie after an event that would have changed the CSRF token, e.g. _login_. See [here](https://naturalprogrammer.gitbooks.io/spring-lemon-getting-started/content/api_documentation.html#csrf) for more details.\n\nIn summary, you may need to call this after events related to Spring Security, like login and logout."
+			},
+			"response": []
+		},
+		{
+			"name": "Switch user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Switch user status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/login/impersonate",
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrfToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "{{userEmail}}",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Let's a good ADMIN switch to another user."
+			},
+			"response": []
+		},
+		{
+			"name": "Switch back",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Switch back status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/logout/impersonate",
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrfToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Switch back to original user"
+			},
+			"response": []
+		},
+		{
+			"name": "Logout 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Logout status code is 200\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/logout",
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrfToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "Logs a user out."
+			},
+			"response": []
+		},
+		{
+			"name": "Ping 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Set XSRF Token ",
+							"postman.setEnvironmentVariable(\"xsrfToken\", postman.getResponseHeader(\"X-XSRF-TOKEN\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/ping",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Sends a get request to the server. The server responds with a `200`.\n\nThis is useful for fetching the CSRF cookie after an event that would have changed the CSRF token, e.g. _login_. See [here](https://naturalprogrammer.gitbooks.io/spring-lemon-getting-started/content/api_documentation.html#csrf) for more details.\n\nIn summary, you may need to call this after events related to Spring Security, like login and logout."
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Forgot password status code is 200\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/forgot-password",
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrfToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "{{userEmail}}",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "When a user forgets his password, he can post a form like this"
+			},
+			"response": []
+		},
+		{
+			"name": "Reset password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Forgot password status code is 200\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/users/25fe1fbf-877d-4aa6-9e07-c2128094a83b/reset-password",
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrfToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "newPassword",
+							"value": "a-new-password",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "In the Forgot password section, we saw how a user gets a link with a forgotPasswordCode embedded. Clicking on the link should take him to a front-end form, where he should enter a new password. Upon submitting that form, a request like this should be sent"
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch user by email",
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/users/fetch-by-email?email={{userEmail}}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "E.g. a good ADMIN fetching a user, maybe for changing its roles. The confidential fields would be null in case the current user does not have rights to see them."
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch user by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var currentUser = JSON.parse(responseBody);",
+							"console.log(currentUser.version);",
+							"postman.setEnvironmentVariable(\"userVersion\", currentUser.version);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/users/{{userId}}/fetch-by-id",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Viewing the profile of a user."
+			},
+			"response": []
+		},
+		{
+			"name": "Login 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Login status code is 200\"] = responseCode.code === 200;",
+							"",
+							"// Set userId",
+							"postman.setEnvironmentVariable(\"userId\", JSON.parse(responseBody).id);",
+							"",
+							"// Set XSRF Token ",
+							"postman.setEnvironmentVariable(\"xsrfToken\", postman.getResponseHeader(\"X-XSRF-TOKEN\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrfToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "{{userEmail}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "a-new-password",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "rememberMe",
+							"value": "false",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Logs the user in. To remember the user for 15 days, have the rememberMe parameter as true."
+			},
+			"response": []
+		},
+		{
+			"name": "Ping 5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Set XSRF Token ",
+							"postman.setEnvironmentVariable(\"xsrfToken\", postman.getResponseHeader(\"X-XSRF-TOKEN\"));"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/ping",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Sends a get request to the server. The server responds with a `200`.\n\nThis is useful for fetching the CSRF cookie after an event that would have changed the CSRF token, e.g. _login_. See [here](https://naturalprogrammer.gitbooks.io/spring-lemon-getting-started/content/api_documentation.html#csrf) for more details.\n\nIn summary, you may need to call this after events related to Spring Security, like login and logout."
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/users/{{userId}}/update",
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrfToken}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\" : \"Updated Name\",\r\n\t\"admin\" : false,\r\n\t\"unverified\" : false,\r\n\t\"blocked\" : true,\r\n\t\"version\" : 0\r\n}"
+				},
+				"description": "To update the name and roles of a user, a request like this can be used"
+			},
+			"response": []
+		},
+		{
+			"name": "Change password",
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/users/{{userId}}/change-password",
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrfToken}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"oldPassword\" : \"a-new-password\",\r\n    \"password\" : \"a-new-password-2\",\r\n    \"retypePassword\" : \"a-new-password-2\"\r\n}"
+				},
+				"description": "To change the password of a user"
+			},
+			"response": []
+		},
+		{
+			"name": "Requesting for changing email",
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/users/{{userId}}/request-email-change",
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrfToken}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\" : \"a-new-password-2\",\r\n    \"newEmail\": \"{{$guid}}@example.com\"\r\n}"
+				},
+				"description": "A user (or a good ADMIN) can request for changing email id"
+			},
+			"response": []
+		},
+		{
+			"name": "Change email",
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/users/cdf2a79e-cd64-476e-854b-1202c5ed7014/change-email",
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrfToken}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "When a user requests for changing his email, a mail is sent to him, which contains a link with a changeEmailCode embedded. Clicking on the link brings him back to the client, where first he should login if he is not already. He then would click a button for proceeding with the change, which will send the following request to the server:"
+			},
+			"response": []
+		},
+		{
+			"name": "Verify User with Auth Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Verify user status code is 200\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{lemonDemoUrl}}/api/core/users/f7d3b469-7199-4110-95cd-95d8c5cc7693/verify",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 23:84dff186-3aca-4bc6-899a-6061abed76ae",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "After a user signs up, he receives a verification mail. The mail contains a link with an embedded verificationCode. Clicking on it takes the user to the front-end application, where he is first asked to login if he is not already, and then click a verify button. On clicking verify, a POST request is sent like this."
+			},
+			"response": []
+		}
+	]
+}
