@@ -19,7 +19,7 @@ spring:
   devtools:
     # Comment this if you want the app to restart
     # when source code changes
-    restart.enabled: false
+    restart.enabled: true
     livereload.enabled: false
 
 server.servlet.session.persistent: false

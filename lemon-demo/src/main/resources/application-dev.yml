@@ -29,13 +29,13 @@ logging:
 
 lemon:
 
-  # application-url: http://localhost:9000
-  # oauth2-authentication-success-url: http://localhost:9000/social-login-success?token=
+  application-url: http://localhost:8080
+  oauth2-authentication-success-url: http://localhost:8080/social-login-success?token=
 
-  cors:
+#  cors:
     # Comma separated values of CORS allowedOrigins
     # If this property is not given, CORS is not configured
-    allowed-origins: http://localhost:9000
+#    allowed-origins: http://localhost:9000,http://localhost:8080
     
   recaptcha:
     sitekey: 6LdwxRcUAAAAABkhOGWQXhl9FsR27D5YUJRuGzx0
