@@ -5,7 +5,7 @@ services:
   telegraf:
     image: telegraf:1.5.3
     volumes:
-      - ./etc/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - ./src/main/resources/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     links:
       - influxdb
     ports:
@@ -14,7 +14,7 @@ services:
   influxdb:
     image: influxdb:1.5.1
     volumes:
-      - ./data/influxdb:/var/lib/influxdb
+      - ./src/main/resources/data/influxdb:/var/lib/influxdb
     ports:
       - "8086:8086"
   # Define a Chronograf service
