@@ -42,6 +42,8 @@ services:
   spring-influx:
     build:
       context: .
+    environment:
+      INFLUXDB_URL: http://influxdb:8086
     ports: 
       - "8080:8080"
     depends_on:

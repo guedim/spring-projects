@@ -48,5 +48,7 @@ services:
       - "8080:8080"
     depends_on:
       - influxdb
+      - telegraf
     links:
       - influxdb
+      - telegraf
