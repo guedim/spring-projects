@@ -25,4 +25,6 @@ public class PersonController {
 	public List<Person> findAll() {
 		return service.findAll();
 	}
+
+	
 }
