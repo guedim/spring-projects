@@ -36,21 +36,16 @@ docker-componse up
 http://192.168.99.100:8888/
 ```
 
-![Landoop](https://github.com/guedim/postgres-kafka-elastic/blob/master/resources/images/landoop.png "Landoop portal")
+![Chronograf](https://github.com/guedim/spring-projects/blob/master/spring-tick/src/main/resources/static/chronograf.png "Chronograf portal")
 
 
 4) Finally, you create custom dashboards and alerts:<a name="end"></a>
 
-- Metrics for host, JVM and spring project:
-![Kafka Postgres Topic](https://github.com/guedim/postgres-kafka-elastic/blob/master/resources/images/Topic.png "Kafka Postgres topic")
+- Metrics for host
+- Metrics for JVM 
+- Metrics for spring project:
 
-- Sample dashboards:
-
-```sh
-http://192.168.99.100:9200/_plugin/dejavu
-```
-
-![ElasticSearch - Dejavu](https://github.com/guedim/postgres-kafka-elastic/blob/master/resources/images/elastic-dejavu.png "ElasticSearch - Dejavu")
+![end](https://github.com/guedim/spring-projects/blob/master/spring-tick/src/main/resources/static/sample-dashboard.png "Sample dashboards")
 
 
 
