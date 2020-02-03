@@ -1,0 +1,34 @@
+server:
+  port : 4835
+  
+spring:
+   jta:
+      log-dir: transaction-logs-lp
+   datasource:
+      driver-class-name: org.postgresql.Driver
+      hikari:
+         maximum-pool-size: 6
+         minimum-idle: 1
+      password: pol123456$t8911
+      type: com.zaxxer.hikari.HikariDataSource
+      url: jdbc:postgresql://10.50.101.10:5433/pol_v4
+      username: pol_v4
+      
+kafka:
+   truststore:
+      location: "/usr/local/payu/payu_v4/notification/conf/notification-service/kafka_keystore.jks"
+      password: "jenkinsPassword"
+   keystore:
+      location: "/usr/local/payu/payu_v4/notification/conf/notification-service/kafka_keystore.jks"
+      password: "jenkinsPassword"
+   private:
+      key:
+         password: "jenkinsPassword"
+         
+notification-service:
+   apikey: "ee285206-eddc-4715-aab3-e0b757bc2510"
+   brokers: "10.50.103.100:9093,10.50.103.101:9093,10.50.103.102:9093"
+
+landing-page.url-base: 
+
+gigaspaces.account-space-url: jini://*/*/accountSpace?locators=10.50.100.220:7102,10.50.100.221:7102,10.50.100.156:7102
