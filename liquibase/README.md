@@ -12,25 +12,28 @@ This sample project is based on the post  [One-Stop Guide to Database Migration 
 - Clone this repository 
 
 ```
- git clone https://github.com/thombergs/code-examples/spring-boot/data-migration/liquibase
+ git https://github.com/guedim/spring-projects.git
 ```
 
-- Move to the directory `code-examples/spring-boot/data-migration/liquibase`
+- Move to the directory `liquibase`
 
+```
+cd spring-projects/liquibase
+```
 
-- Run the docker compose file `infra-local.yaml` in `src/docker`. This starts the postgres database needed to run the application.
+- Run the docker compose file `infra-local.yaml` in `src/main/docker` for starting a postgres database.
+
 ```
    docker-compose -f ./src/main/docker/infra-local.yaml up -d
 ```
 
-- Now run the spring boot application as follows.
+- Run spring boot application.
+
 ```
     mvnw spring-boot:run -Dspring-boot.run.profiles=docker
 ```
 
-The application should start and listening on port `8080`.
-
-Open the url (http://localhost:8080/liquibase/users/100000000) in the browser. You should see a response as below
+- The application should start and listening on port `8080`. Open the url [http://localhost:8080/liquibase/users/100000000](http://localhost:8080/liquibase/users/100000000) in the browser. You should see a response as below
 
 ```json
 {
