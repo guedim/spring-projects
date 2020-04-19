@@ -1,12 +1,14 @@
+
 version: "3.0"
 services:
   database:
-    image: library/postgres:latest
+    image: postgres:latest
     ports:
-      - 5432:5432
+      - 5433:5433
     expose:
-      - 5432
+      - 5433
     environment:
       - POSTGRES_PASSWORD=demopassword
       - POSTGRES_USER=demouser
       - POSTGRES_DB=liquibasedemo
+    command: -p 5433

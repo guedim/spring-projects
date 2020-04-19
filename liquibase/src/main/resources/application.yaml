@@ -16,7 +16,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: jdbc:postgresql://localhost:5432/liquibasedemo?current_schema=public
+    url: jdbc:postgresql://localhost:5433/liquibasedemo?current_schema=public
     driverClassName: org.postgresql.Driver
     username: demouser
     password: demopassword
