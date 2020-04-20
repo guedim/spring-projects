@@ -15,7 +15,7 @@ There are 2 services in this demo:
 - User service: Use ``Postgres`` to persit data.
 - Item service: uses ``Redis`` to persist data and depends on User service.
 
-<br/><br/>
+<br/>
 
 ![Services](services.jpg "Services flow")
 
