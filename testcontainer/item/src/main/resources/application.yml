@@ -1,0 +1,10 @@
+server.port: ${SERVER_PORT:8084}
+
+spring:
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+
+user:
+  host: ${USER_HOST:localhost}
+  port: ${REDIS_PORT:8083}
