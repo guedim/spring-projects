@@ -18,11 +18,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>11</java.version>
-        <maven.compiler.target>11</maven.compiler.target>
-    	<maven.compiler.source>11</maven.compiler.source>
-    	<maven.compiler.release>11</maven.compiler.release>
-
+        <java.version>1.8</java.version>
+        
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
 
         <jupiter.version>5.5.2</jupiter.version>
