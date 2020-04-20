@@ -8,12 +8,17 @@ This sample project is based on [integration testing with TestContainers](https:
 
 ## How to Run the project and tests
 
-### Run application
+### Application
 
 There are 2 services in this demo:
 
 - User service: Use ``Postgres`` to persit data.
 - Item service: uses ``Redis`` to persist data and depends on User service.
+
+<br/><br/>
+
+![Services](services.jpg "Services flow")
+
 
 Each service is a Spring Boot project which uses non-mocked DB started by ``TestContainers`` library.  
 
