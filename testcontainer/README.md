@@ -1,38 +1,58 @@
-# Doc
+# SpringBoot TestContainer
 
-https://speakerdeck.com/nikolayk812/integration-testing-with-testsontainers-and-junit-5
-https://www.youtube.com/watch?v=wR3mP9NLn38
+This project demonstrates on how to set-up TestContainers in a Spring Boot application.
+
+This sample project is based on [integration testing with TestContainers](https://speakerdeck.com/nikolayk812/integration-testing-with-testsontainers-and-junit-5) and [TestContainers + JUnit5](https://www.youtube.com/watch?v=wR3mP9NLn38).
 
 
-# TestContainers demo
+
+## How to Run the project and tests
+
+### Run application
 
 There are 2 services in this demo:
 
-- User service
-- Item service
+- User service: Use ``Postgres`` to persit data.
+- Item service: uses ``Redis`` to persist data and depends on User service.
+
+Each service is a Spring Boot project which uses non-mocked DB started by ``TestContainers`` library.  
+
+- test-runner: Is a module to start ``User`` and ``Item`` services and their dependencies (``Postgeres`` & ``Redis``) in order  to perform end-to-end tests.
 
 
-*User service* uses *Postgres* and *Item service* uses *Redis* respectively and has dependency on User service. Each service has a SpringBootTest which uses non-mocked DB started by *TestContainers* library.  
+### Setup
 
-*test-runner* module is an example of a framework to start all 2 services and their dependencies  together in order to perform end-to-end tests.
+- Clone this repository 
 
-## Stack
+```
+ git https://github.com/guedim/spring-projects.git
+```
 
-- Spring Boot
-- Docker
-- Postgres, Redis
-- TestContainers
-- JUnit 5
+- Move to the directory `testcontainer`
 
-## Setup
+```
+cd spring-projects/testcontainer
+```
 
-To build all services in Docker:
+### Build project & Docker images
+
+- To build User and Item services and build docker images, run next script:
+ 
 ```
 sh build-all.sh
 ```
 
-To run end-to-end tests:
+
+### Run end-to-end tests
+
+To run end-to-end tests go to `test-runner` project:
+
 ```
-cd test-runner
+cd spring-projects/testcontainer/test-runner
+```
+
+Run `mvn test` for excuting end-to-end Test:
+
+```
 mvn test
 ```

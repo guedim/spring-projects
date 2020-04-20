@@ -1,11 +1,9 @@
-package com.guedim.user;
+package com.guedim;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.ImmutableMap;
-import com.guedim.user.User;
-import com.guedim.user.UserCreateResponse;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.isEmptyString;
 
-import lombok.SneakyThrows;
 import org.hamcrest.core.IsNot;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
@@ -21,15 +19,16 @@ import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.isEmptyString;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.ImmutableMap;
 
-//@Testcontainers
+import lombok.SneakyThrows;
+
+@Testcontainers
 public class UserIntegrationTest {
     private static final Network network = Network.newNetwork();
 
-    //@Container
+    @Container
     private static final GenericContainer postgres = new PostgreSQLContainer("postgres:9.6.15")
             .withDatabaseName("users")
             .withUsername("postgres")
@@ -37,7 +36,7 @@ public class UserIntegrationTest {
             .withNetwork(network)
             .withNetworkAliases("postgres-alias");
 
-    //@Container
+    @Container
     private static final GenericContainer userService = new GenericContainer("guedim-tc-demo/user:latest")
             .withExposedPorts(8083)
             .withNetwork(network)
@@ -51,7 +50,7 @@ public class UserIntegrationTest {
             .dependsOn(postgres)
             .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger(" --- user --- ")));
 
-    //@Test
+    @Test
     void testFlow() {
         //create user
         User user = new User("", "guedim", "guedim@gmail.com");
