@@ -17,7 +17,7 @@ This sample project is based on post [Sonarcloud Status](https://sonarcloud.io/a
 - Move to the directory `active-mq-sender`
 
 ```
-cd spring-projects/active-mq-sender
+cd spring-projects/active-mq/active-mq-sender
 ```
 
 - Fix broker url and credentials in `application.yml` located in  `src/main/resources`.
