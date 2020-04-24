@@ -1,0 +1,6 @@
+spring:
+  activemq:
+    broker-url: vm://embedded-broker?broker.persistent=false
+
+queue:
+  name: pps.acknowledge.notification  
