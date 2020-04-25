@@ -1,6 +1,7 @@
 spring:
   activemq:
     broker-url: tcp://localhost:61616
+    admin-broker-url: http://localhost:8161/api/
     user: admin 
     password: admin
 

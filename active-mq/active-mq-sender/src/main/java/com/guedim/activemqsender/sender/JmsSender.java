@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 import com.guedim.activemqsender.model.Message;
 
 @Component
-public class Sender {
+public class JmsSender {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(Sender.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JmsSender.class);
 
 	@Autowired
 	private JmsTemplate jmsTemplate;

@@ -22,8 +22,6 @@ public class JmsConfig {
 	private String brokerUser;
 	@Value("${spring.activemq.password}")
 	private String brokerPassword;
-
-
 	@Value("${queue.name}")
 	private String destination;
 

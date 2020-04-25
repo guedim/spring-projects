@@ -34,3 +34,10 @@ cd spring-projects/active-mq/active-mq-sender
 ```
     ./mvnw spring-boot:run
 ```
+
+
+### References
+
+
+- https://activemq.apache.org/rest
+- https://spring.io/guides/gs/consuming-rest/

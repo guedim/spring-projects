@@ -10,7 +10,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.guedim.activemqsender.model.Message;
-import com.guedim.activemqsender.sender.Sender;
+import com.guedim.activemqsender.sender.JmsSender;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -21,7 +21,7 @@ class ActiveMqSenderApplicationTests {
 	public static EmbeddedActiveMQBroker broker = new EmbeddedActiveMQBroker();
 	
 	@Autowired
-	private Sender sender;
+	private JmsSender sender;
 
 	@Test
 	void testSender() throws InterruptedException {
