@@ -1,6 +1,9 @@
 spring:
   activemq:
     broker-url: vm://embedded-broker?broker.persistent=false
+    admin-broker-url: http://localhost:8161/api/
+    user: admin 
+    password: admin
 
 queue:
   name: pps.acknowledge.notification  
