@@ -42,7 +42,7 @@ public class MyRunner implements CommandLineRunner {
 				LOGGER.info("reading line: {}", line);
 				try {
 					final String[] split = line.split(",");
-					final Message message = new Message(Integer.valueOf(split[0]), split[1]);
+					final Message message = new Message(split[0], Integer.valueOf(split[1]));
 					httpSender.send(message);
 				} catch (Exception e) {
 					LOGGER.error("error processing line {}", line, e);

@@ -26,7 +26,7 @@ class ActiveMqSenderApplicationTests {
 	@Test
 	void testSender() throws InterruptedException {
 		for (int i = 1; i < 1000; i++) {
-			Message m = new Message(i, null);
+			Message m = new Message(null, i);
 			sender.send(m);
 			Thread.sleep(50);
 		}

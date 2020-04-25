@@ -24,9 +24,9 @@ cd spring-projects/active-mq/active-mq-sender
 - Add the data file to process located in located in  `src/main/resources`. Take a look for file structure:
 
 ```csv
-1,description_a
-2,description_b
-3,description_c
+description_a,1
+description_b,2
+description_c,3
 ````
 
 - Run spring boot application.
