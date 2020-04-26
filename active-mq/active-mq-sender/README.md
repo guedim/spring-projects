@@ -21,6 +21,7 @@ cd spring-projects/active-mq/active-mq-sender
 ```
 
 - Fix broker url and credentials in `application.yml` located in  `src/main/resources`.
+- Set Sender type (`HTTP` or `JMS`) using property  `sender:type`  in `application.yml` 
 - Add the data file to process located in located in  `src/main/resources`. Take a look for file structure:
 
 ```csv
