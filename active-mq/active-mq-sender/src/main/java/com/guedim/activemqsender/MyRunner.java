@@ -9,23 +9,26 @@ import java.nio.file.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.guedim.activemqsender.model.Message;
-import com.guedim.activemqsender.sender.HttpSender;
+import com.guedim.activemqsender.sender.ISender;
+import com.guedim.activemqsender.sender.SenderFactory;
 
+@Profile("!test")
 @Component
 public class MyRunner implements CommandLineRunner {
 
 	private static final String FILE_NAME = "src/main/resources/data.csv";
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(MyRunner.class);
 
-	@Autowired
-	private HttpSender httpSender;
+	@Value("${sender.type:JMS}")
+	private String senderType;
 
 	@Autowired
 	private ConfigurableApplicationContext context;
@@ -35,6 +38,7 @@ public class MyRunner implements CommandLineRunner {
 
 		String line = null;
 		final Path path = Paths.get(FILE_NAME);
+		ISender sender = SenderFactory.getSender(senderType);
 
 		try (final BufferedReader reader = Files.newBufferedReader(path)) {
 			;
@@ -43,7 +47,7 @@ public class MyRunner implements CommandLineRunner {
 				try {
 					final String[] split = line.split(",");
 					final Message message = new Message(split[0], Integer.valueOf(split[1]));
-					httpSender.send(message);
+					sender.send(message);
 				} catch (Exception e) {
 					LOGGER.error("error processing line {}", line, e);
 				}

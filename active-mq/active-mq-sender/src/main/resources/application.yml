@@ -7,3 +7,6 @@ spring:
 
 queue:
   name: pps.acknowledge.notification  
+
+sender:
+  type: jms

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.guedim.activemqsender.model.Message;
 
 @Component
-public class JmsSender {
+public class JmsSender implements ISender {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(JmsSender.class);
 
@@ -17,8 +17,13 @@ public class JmsSender {
 	private JmsTemplate jmsTemplate;
 
 	public void send(Message message) {
-		LOGGER.info("sending message='{}'", message);
+		LOGGER.info("sending jms message='{}'", message);
 		jmsTemplate.convertAndSend(message);
+	}
+
+	@Override
+	public String getType() {
+		return "JMS";
 	}
 
 }

@@ -27,8 +27,7 @@ public class RestTemplateConfig {
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		
-		// create a list the headers 
-	    	List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
+		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
 	    interceptors.add(new HttpHeaderInterceptor(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE));
 	    interceptors.add(new HttpHeaderInterceptor(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE));
 		

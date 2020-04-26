@@ -13,10 +13,9 @@ import org.springframework.web.client.RestTemplate;
 import com.guedim.activemqsender.model.Message;
 
 @Component
-public class HttpSender {
+public class HttpSender implements ISender {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(HttpSender.class);
-	
 	private static final String URL_MESSAGE = "/message/";
 	private static final String URL_TYPE = "?type=queue";
 			
@@ -29,10 +28,9 @@ public class HttpSender {
 	RestTemplate restTemplate;
 
 	public void send(Message message) {
-		LOGGER.info("sending message='{}'", message);
+		LOGGER.info("sending http message='{}'", message);
 
 		try {
-			// request url
 			String url = brokerAdminUrl + URL_MESSAGE + destination + URL_TYPE;
 			HttpEntity<Message> httpEntity = new HttpEntity<>(message);
 			ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
@@ -41,5 +39,10 @@ public class HttpSender {
 		} catch (Exception ex) {
 			LOGGER.error("Error processing record",ex);
 		}
+	}
+
+	@Override
+	public String getType() {
+		return "HTTP";
 	}
 }
