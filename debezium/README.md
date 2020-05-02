@@ -63,4 +63,4 @@ To run integration test, you don't need to run the docker compose file. Just run
 mvn test
 ```
 
-The test uses [TestContainers](https://www.testcontainers.org/) to spin a postgres database, which is used during the integration test.
+The test uses [TestContainers](https://www.testcontainers.org/) to spin a postgres database and elastic Search engine which is used during the integration test.
