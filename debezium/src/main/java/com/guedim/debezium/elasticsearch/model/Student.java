@@ -1,26 +1,25 @@
 package com.guedim.debezium.elasticsearch.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * ElasticSearch Student entity
  */
 @Data
-@Document(indexName = "student", shards = 1, replicas = 0, refreshInterval = "-1")
+@Entity
+@Table(name = "student")
 public class Student {
+	
 	@Id
 	private String id;
 
-	@Field(type = FieldType.Text)
 	private String name;
 
-	@Field(type = FieldType.Text)
 	private String address;
 
-	@Field(type = FieldType.Text)
 	private String email;
 }

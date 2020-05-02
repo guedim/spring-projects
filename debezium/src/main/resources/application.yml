@@ -2,7 +2,16 @@
 server:
   port: 8080
 
-## Database properties
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5433/studentdb?current_schema=public
+    driverClassName: org.postgresql.Driver
+    username: user
+    password: password
+
+## Database properties for debezium
 student:
   datasource:
     databasename: studentdb

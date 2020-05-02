@@ -16,7 +16,9 @@ import org.testcontainers.containers.Network;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.elasticsearch.ElasticsearchContainer;
 
+import com.guedim.debezium.elasticsearch.model.Student;
 import com.guedim.debezium.elasticsearch.service.StudentService;
+import com.guedim.debezium.postgres.repository.StudenRepository;
 import com.guedim.debezium.utils.Operation;
 
 @SpringBootTest
@@ -25,7 +27,8 @@ class DebeziumApplicationTests {
 	
     private static final Network network = Network.newNetwork();
 
-	
+    @Autowired
+    private StudenRepository studentRepository;
 	
 	@Autowired
 	private StudentService studentService;
@@ -52,6 +55,14 @@ class DebeziumApplicationTests {
 		public void initialize(@NotNull ConfigurableApplicationContext configurableApplicationContext) {
 
 			postgres.start();
+			// Postgres properties
+			configurableApplicationContext.getEnvironment().getSystemProperties()
+	          .put("spring.datasource.url", postgres.getJdbcUrl());
+	        configurableApplicationContext.getEnvironment().getSystemProperties()
+	          .put("spring.datasource.username", postgres.getUsername());
+	        configurableApplicationContext.getEnvironment().getSystemProperties()
+	          .put("spring.datasource.password", postgres.getPassword());
+	        //  Postgres for debezium
 			configurableApplicationContext.getEnvironment().getSystemProperties().put("student.datasource.databasename",
 					postgres.getDatabaseName());
 			configurableApplicationContext.getEnvironment().getSystemProperties().put("student.datasource.username",
@@ -60,7 +71,7 @@ class DebeziumApplicationTests {
 					postgres.getPassword());
 			configurableApplicationContext.getEnvironment().getSystemProperties().put("student.datasource.port",
 					postgres.getFirstMappedPort());
-			
+			// Elastic
 			es.start();
 			String str = es.getHttpHostAddress(); 
 	        String[] arrOfStr = str.split(":", 2); 
@@ -70,6 +81,40 @@ class DebeziumApplicationTests {
 					arrOfStr[1]);
 		}
 	}
+	
+	
+	@Test
+	public void creteStudentTest() {
+		
+		Student student = new Student();
+		student.setId("1");
+		student.setName("mario");
+		student.setEmail("guedim@gmail.com");
+		student.setAddress("address 122");
+		
+		studentRepository.save(student);
+		sleep();
+	}
+	
+	@Test
+	public void updatetStudentTest() {
+		
+		Student student = new Student();
+		student.setId("1");
+		student.setName("mario upd");
+		student.setEmail("guedim-upd@gmail.com");
+		student.setAddress("address 122 upd");
+		
+		studentRepository.save(student);
+		sleep();
+	}
+	
+	@Test
+	public void deleteStudentTest() {
+		//studentRepository.deleteById("1");
+		sleep();
+	}
+	
 
 	@Test
 	void esTest() throws InterruptedException {
@@ -81,7 +126,15 @@ class DebeziumApplicationTests {
 		studentService.maintainReadModel(studentData, Operation.CREATE);
 		studentService.maintainReadModel(studentData, Operation.UPDATE);
 		studentService.maintainReadModel(studentData, Operation.DELETE);
-		Thread.sleep(999999999999L);
+		sleep();
+	}
+	
+	void sleep() {
+		try {
+			Thread.sleep(3000L);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

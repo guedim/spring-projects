@@ -6,16 +6,17 @@ services:
     container_name: postgres
     image: debezium/postgres
     ports:
-      - 5432:5432
+      - 5433:5433
     environment:
       - POSTGRES_DB=studentdb
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
+    command: -p 5433
 
   # Install Elasticsearch.
   elasticsearch:
     container_name: elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.1
     environment:
     - discovery.type=single-node
     ports:

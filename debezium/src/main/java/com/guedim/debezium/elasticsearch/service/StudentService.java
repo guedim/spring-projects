@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.guedim.debezium.elasticsearch.model.Student;
-import com.guedim.debezium.elasticsearch.repository.StudentRepository;
 import com.guedim.debezium.utils.Operation;
 
 @Service
@@ -31,7 +30,7 @@ public class StudentService {
 	private final RestHighLevelClient client;
 
 	@Autowired
-	public StudentService(StudentRepository studentRepository, RestHighLevelClient client) {
+	public StudentService(RestHighLevelClient client) {
 		this.client = client;
 	}
 

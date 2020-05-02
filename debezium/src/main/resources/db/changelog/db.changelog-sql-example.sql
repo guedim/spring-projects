@@ -11,10 +11,10 @@ CREATE TABLE public.student
 );
 
 --changeset guedim-debezium-demo:Insert record 
-INSERT INTO STUDENT(ID, NAME, ADDRESS, EMAIL) VALUES('1','Mario','Colombia','guedim@gmail.com');
+--INSERT INTO STUDENT(ID, NAME, ADDRESS, EMAIL) VALUES('1','Mario','Colombia','guedim@gmail.com');
 
 --changeset guedim-debezium-demo:update record
-UPDATE STUDENT SET EMAIL='guedim-2@gmail.com', NAME='Matias' WHERE ID = '1'; 
+--UPDATE STUDENT SET EMAIL='guedim-2@gmail.com', NAME='Matias' WHERE ID = '1'; 
 
 --changeset guedim-debezium-demo:delete record
-DELETE FROM STUDENT WHERE ID = '1';
+--DELETE FROM STUDENT WHERE ID = '1';
