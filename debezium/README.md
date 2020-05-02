@@ -5,6 +5,18 @@ This project demonstrates on how to set-up debezium in a Spring Boot application
 This sample project is based on the post  [Change Data Capture (CDC) With Embedded Debezium and Spring Boot](https://dzone.com/articles/change-data-capture-cdc-with-embedded-debezium-and).
 
 
+### Application
+
+There is one services in this demo (a ``Spring Boot`` application) running in 8080 port.
+- This application has a controller to save data in ``Postgres``.
+- This project has ``debezium`` configuration to read data from ``Postgres`` logs and process.
+- Finally, data are injected in ``elastic Search``.
+
+<br/>
+
+![CDC - Debezium](debezium.jpg "CDC flow")
+
+
 ## How to Run the project and tests
 
 ### Run application
