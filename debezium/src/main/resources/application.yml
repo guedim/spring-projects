@@ -1,0 +1,25 @@
+## Server properties
+server:
+  port: 8080
+
+## Database properties
+student:
+  datasource:
+    databasename: studentdb
+    host: localhost
+    port: 5433
+    username: user
+    password: password
+
+## ElasticSearch properties
+elasticsearch:
+  host: localhost
+  port: 9200
+  username:
+  password:
+
+## Logging properties
+logging: 
+  file: logs/student-cdc-relay.log
+  level:
+    org.springframework.web: INFO
