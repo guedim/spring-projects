@@ -61,3 +61,8 @@ Run `mvn test` for excuting end-to-end Test:
 ```
 mvn test
 ```
+
+
+# References
+
+https://dzone.com/articles/easy-integration-testing-with-testcontainers
