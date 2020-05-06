@@ -31,4 +31,6 @@ build/
 .vscode/
 
 ./logs
+./logs/*
 *.dat
+logs/*
