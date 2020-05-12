@@ -1,0 +1,49 @@
+version: '3.7'
+
+volumes:
+    prometheus_data: {}
+    grafana_data: {}
+    
+services:
+  # Define an InfluxDB service
+  influxdb:
+    image: influxdb:latest
+    volumes:
+      - ./data/influxdb:/var/lib/influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      - INFLUXDB_DB=metrics
+      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
+      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}    
+      
+  # Define a prometheus service
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./src/main/resources:/etc/prometheus/
+      - prometheus_data:/data/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 9090:9090
+    extra_hosts:
+      - "my.local.machine:0.0.0.0"
+      - "my.local.machine:127.0.0.1"
+         
+  #
+  micrometer-prom:
+    image: guedim-micrometer-demo:latest
+    environment:
+      INFLUXDB_URL: http://influxdb:8086
+    ports: 
+      - "8080:8080"
+    depends_on:
+      - influxdb
+      - prometheus
+    links:
+      - influxdb 
+      - prometheus

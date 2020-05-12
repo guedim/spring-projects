@@ -1,0 +1,11 @@
+management:
+  metrics:
+    export:
+      influx:
+        enabled: true
+        db: metrics
+        uri: http://influxdb:8086
+  endpoints:
+    web:
+      exposure:
+        include: '*'
