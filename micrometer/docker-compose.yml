@@ -31,7 +31,7 @@ services:
     ports:
       - 9090:9090
     extra_hosts:
-      - "my.local.machine:0.0.0.0"
+      - "my.local.machine:172.16.222.111"
       - "my.local.machine:127.0.0.1"
          
   #
