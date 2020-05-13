@@ -3,7 +3,7 @@
 Some spring sample projects with different tools or frameworks.
 
 
-# Microservices
+## Microservices
 
 - [SpringBoot Multiple modules ](./spring-multiple-modules/).
 
@@ -17,7 +17,7 @@ Some spring sample projects with different tools or frameworks.
 
 
 
-# Secutiry
+## Secutiry
 
 - [SpringBoot OAuth2 example](./oauth2login/) with [Okta](https://www.okta.com).
 
@@ -28,19 +28,19 @@ Some spring sample projects with different tools or frameworks.
 - [SpringBoot Lemon Extension](./lemon-demo/) with features such as sign up, sign in, social signup/in, stateless JWT token authentication, verify email, update profile, forgot password, change password, change email, captcha validation etc.
 
 
-# Observability
+## Observability
 
 - [SpringBoot TICS demo](./spring-tick/) using [TICS Stack](http://influxdata.com/).
 
 - [SpringBoot micrometer](./micrometer/) with [Influx](http://influxdata.com/) and [Prometheus](https://prometheus.io).
 
 
-# Reactive
+## Reactive
 
 - [SpringBoot server-sent events](./webclient/) with [WebClient](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux-client) and [Reactor](https://projectreactor.io).
 
 
-# Reactive
+## Events
 
 - [SpringBoot JMS service](./active-mq/active-mq-sender/) with [ActiveMQ](http://activemq.apache.org/).
 
