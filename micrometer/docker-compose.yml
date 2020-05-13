@@ -36,7 +36,7 @@ services:
          
   #
   micrometer-prom:
-    image: guedim-micrometer-demo:latest
+    image: guedim/guedim-micrometer-demo:latest
     environment:
       INFLUXDB_URL: http://influxdb:8086
     ports: 

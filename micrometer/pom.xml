@@ -18,7 +18,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<micrometer.version>1.3.2</micrometer.version>
-		<docker.image.name>guedim-micrometer-demo</docker.image.name>
+		<docker.image.name>guedim/guedim-micrometer-demo</docker.image.name>
 		<docker.image.tag>latest</docker.image.tag>
 	</properties>
 
