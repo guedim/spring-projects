@@ -30,4 +30,4 @@ In this repo, you can find next examples:
 
 13. [SpringBoot end-to-end Test](./testcontainer/) with  [TestContainer integration](http://testcontainers.org/).
 
-14. [SpringBoot server-sent events](.//) with [WebClient](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux-client) and [Reactor](https://projectreactor.io).
+14. [SpringBoot server-sent events](./webclient/) with [WebClient](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux-client) and [Reactor](https://projectreactor.io).
