@@ -6,7 +6,7 @@ In this repo, you can find next examples:
 
 1. [SpringBoot Microservices](./SpringBootMicroservicesDemo/README.md) using [Eureka Server](https://github.com/spring-cloud/spring-cloud-netflix).
 
-2. [SpringBoot ActiveMQ service](./active-mq/active-mq-sender/README.md).
+2. [SpringBoot JMS service](./active-mq/active-mq-sender/README.md) with [ActiveMQ](http://activemq.apache.org/).
 
 3. [SpringBoot Microservices](./consul-microservice-discovery-sample/README.md) using [Consul Server](http://consul.io).
 
@@ -18,7 +18,7 @@ In this repo, you can find next examples:
 
 7. [SpringBoot micrometer](./micrometer/README.md) with [Influx](http://influxdata.com/) and [Prometheus](https://prometheus.io).
 
-8. [SpringBoot OAuth2 example](./externalize-config/README.md) with [Okta](https://www.okta.com).
+8. [SpringBoot OAuth2 example](./oauth2login/README.md) with [Okta](https://www.okta.com).
 
 9. [SpringBoot Secutiry with Roles/Groups](./okta-spring-security-roles-example/README.md) with [Okta](https://www.okta.com).
 
