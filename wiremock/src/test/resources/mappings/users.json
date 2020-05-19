@@ -1,0 +1,13 @@
+{
+  "request": {
+    "urlPath": "/users",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "body": "Matias Yuly y Mario",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
