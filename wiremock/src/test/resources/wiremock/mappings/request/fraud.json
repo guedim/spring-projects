@@ -1,0 +1,17 @@
+{
+  "request": {
+    "urlPath": "/evaluate",
+    "method": "POST",
+    "bodyPatterns" : [
+      {"matchesJsonPath" : "$.merchantId"},
+      {"matchesJsonPath" : "$.value"}
+    ]
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "response/fraud/fraud_response.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

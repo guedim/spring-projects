@@ -3,10 +3,10 @@ package com.guedim.wiremock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class UserService {
 
-	@Autowired
+	//@Autowired
 	private UserFeignClient userFeignClient;
 
 	public String getUsers() {

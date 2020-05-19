@@ -1,0 +1,5 @@
+{
+  "isValidateFraud": true,
+  "isSendWebHook": true,
+  "urlNotification": "http://merchant.page.com/webhook/notification"
+}

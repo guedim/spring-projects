@@ -39,4 +39,12 @@ public class FraudEvaluationClient {
 		
 		return result.getBody();
 	}
+	
+	
+	public void test() {
+		
+		 ResponseEntity<String>  result = restTemplate.getForEntity(baseUrl, String.class);
+		 log.info("evaluate fraud response: [{}]", result.getBody());
+		
+	}
 }
