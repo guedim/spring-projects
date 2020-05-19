@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.guedim.wiremock.model.MerchantConfigResponse;
 
-@FeignClient(name="userFeignClient")
+@FeignClient(name="configurationFeignClient")
 public interface ConfigurationFeignClient {
 	
 	@GetMapping(value = "${app.config-service.base-path:}/configs/{id}")
