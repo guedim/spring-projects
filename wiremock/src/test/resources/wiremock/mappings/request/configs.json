@@ -1,6 +1,6 @@
 {
   "request": {
-    "urlPath": "/configs/([0-9]*)",
+    "urlPath": "/configs/1",
     "method": "GET"
   },
   "response": {

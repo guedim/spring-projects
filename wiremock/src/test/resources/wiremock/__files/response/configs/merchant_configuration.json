@@ -1,5 +1,14 @@
-{
-  "isValidateFraud": true,
-  "isSendWebHook": true,
-  "urlNotification": "http://merchant.page.com/webhook/notification"
-}
+[
+   {
+      "key":"isValidateFraud",
+      "value":"true"
+   },
+   {
+      "key":"isSendWebHook",
+      "value":"true"
+   },
+   {
+      "key":"urlNotification",
+      "value":"http://merchant.page.com/webhook/notification"
+   }
+]

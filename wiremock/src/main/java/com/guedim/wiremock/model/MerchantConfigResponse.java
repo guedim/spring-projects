@@ -5,8 +5,6 @@ import lombok.Data;
 @Data
 public class MerchantConfigResponse {
 
-	public Boolean isValidateFraud;
-	public Boolean isSendWebHook;
-	public String urlNotification;
-	
+	public String key;
+	public String value;	
 }
