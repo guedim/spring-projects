@@ -1,11 +1,11 @@
 {
   "request": {
-    "urlPath": "/users",
+    "urlPattern": "/configs/([0-9]*)",
     "method": "GET"
   },
   "response": {
     "status": 200,
-    "body": "Matias Yuly y Mario",
+    "bodyFileName": "response/configs/merchant_configuration.json",
     "headers": {
       "Content-Type": "application/json"
     }

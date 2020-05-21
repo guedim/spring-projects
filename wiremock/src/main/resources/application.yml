@@ -1,0 +1,13 @@
+server.port: ${SERVER_PORT:8080}
+
+spring:
+ application:
+  name: wiremock-service
+
+app:
+   config-service:
+      base-path: http://configurationservice:8080
+   fraud-service:
+      base-path: https://fraudEvaluation.org/evaluate
+
+

@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class FraudEvaluationClient {
 
-	@Value("${app.config-service.base-path:https://fraudEvaluation.org/evaluate}")
+	@Value("${app.fraud-service.base-path}")
 	private String baseUrl;
 
 	private RestTemplate restTemplate;
@@ -38,5 +38,13 @@ public class FraudEvaluationClient {
 		log.info("evaluate fraud response: [{}]", result.getBody());
 		
 		return result.getBody();
+	}
+	
+	
+	public void test() {
+		
+		 ResponseEntity<String>  result = restTemplate.getForEntity(baseUrl, String.class);
+		 log.info("evaluate fraud response: [{}]", result.getBody());
+		
 	}
 }

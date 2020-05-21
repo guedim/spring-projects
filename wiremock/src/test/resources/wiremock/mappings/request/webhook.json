@@ -1,0 +1,17 @@
+{
+  "request": {
+    "urlPath": "/notify",
+    "method": "POST",
+    "bodyPatterns" : [
+      {"matchesJsonPath" : "$.merchantId"},
+      {"matchesJsonPath" : "$.state"}
+    ]
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "response/webhook/webhook_response.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

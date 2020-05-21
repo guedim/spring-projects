@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.guedim.wiremock.model.FraudState;
+import com.guedim.wiremock.model.WebHookRequest;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,8 +22,11 @@ public class WebHookClient {
 	}
 
 	public Integer sendWebHook(Integer merchantId, String url, FraudState fraudState) {
+		
+		
+		WebHookRequest webHookRequest = WebHookRequest.builder().merchantId(merchantId).state(fraudState).build();
 				
-		HttpEntity<FraudState> httpEntity = new HttpEntity<>(fraudState);
+		HttpEntity<WebHookRequest> httpEntity = new HttpEntity<>(webHookRequest);
 		
 		ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
 		

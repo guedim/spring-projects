@@ -6,7 +6,7 @@ import lombok.Data;
 @Builder
 @Data
 public class FraudResponse {
-	public Integer merchantId;
-	public FraudState state;
-	public String description;
+	private Integer merchantId;
+	private FraudState state;
+	private String description;
 }
