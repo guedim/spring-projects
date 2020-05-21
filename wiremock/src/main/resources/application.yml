@@ -1,13 +1,27 @@
-server.port: ${SERVER_PORT:8080}
-
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: /mocks
+    
 spring:
- application:
-  name: wiremock-service
-
+  application:
+    name: wiremock-service
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/demo?current_schema=public
+    driverClassName: org.postgresql.Driver
+    username: demouser
+    password: demopassword
+  
 app:
    config-service:
       base-path: http://configurationservice:8080
    fraud-service:
       base-path: https://fraudEvaluation.org/evaluate
+      
+logging:
+  level:
+    "liquibase" : info
 
 

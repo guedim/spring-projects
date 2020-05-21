@@ -9,5 +9,4 @@ public class ProcessRequest {
 	
 	private Integer merchantId;
 	private BigDecimal value;
-	private String description;
 }

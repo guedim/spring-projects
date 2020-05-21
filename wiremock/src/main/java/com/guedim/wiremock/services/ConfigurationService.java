@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 
 import com.guedim.wiremock.clients.ConfigurationFeignClient;
 import com.guedim.wiremock.model.MerchantConfigResponse;
+import com.guedim.wiremock.repository.ProcessRecordRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class ConfigurationService {
+	
+	@Autowired
+	private ProcessRecordRepository repository;
 	
 	@Autowired
 	private ConfigurationFeignClient client;
