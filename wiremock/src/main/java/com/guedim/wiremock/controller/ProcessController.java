@@ -1,5 +1,10 @@
 package com.guedim.wiremock.controller;
 
+import static com.guedim.wiremock.utils.ProcessUtils.createErrorResponse;
+import static com.guedim.wiremock.utils.ProcessUtils.getFraudConfiguration;
+import static com.guedim.wiremock.utils.ProcessUtils.getUrlNotification;
+import static com.guedim.wiremock.utils.ProcessUtils.getWebHookConfiguration;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -20,13 +25,6 @@ import com.guedim.wiremock.model.ProcessState;
 import com.guedim.wiremock.services.ConfigurationService;
 import com.guedim.wiremock.services.FraudEvaluateService;
 
-import lombok.SneakyThrows;
-
-import static com.guedim.wiremock.utils.ProcessUtils.createErrorResponse;
-import static com.guedim.wiremock.utils.ProcessUtils.getFraudConfiguration;
-import static com.guedim.wiremock.utils.ProcessUtils.getUrlNotification;
-import static com.guedim.wiremock.utils.ProcessUtils.getWebHookConfiguration;
-
 
 @RestController
 @RequestMapping(value = "process")
@@ -42,7 +40,6 @@ public class ProcessController {
 	WebHookClient webHookClient;
 
 	@PostMapping
-	@SneakyThrows
 	public ResponseEntity<ProcessResponse>  create(@RequestBody ProcessRequest request) {
 		
 		Integer merchantId = request.getMerchantId();

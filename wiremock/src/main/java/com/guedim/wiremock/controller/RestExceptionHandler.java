@@ -1,5 +1,7 @@
 package com.guedim.wiremock.controller;
 
+import java.io.IOException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-	@ExceptionHandler(value = { NullPointerException.class,  IllegalArgumentException.class, IllegalStateException.class })
+	@ExceptionHandler(value = { Exception.class,  IllegalArgumentException.class, IllegalStateException.class, IOException.class})
 	protected ResponseEntity<ProcessResponse> handleConflict(RuntimeException ex, WebRequest request) {
 		
 		log.error("error processing request, message: {} ", ex.getMessage());
