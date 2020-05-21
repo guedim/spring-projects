@@ -6,7 +6,8 @@ import lombok.Data;
 
 @Data
 public class ProcessRequest {
-	public Integer merchantId;
-	public BigDecimal value;
-	public String description;
+	
+	private Integer merchantId;
+	private BigDecimal value;
+	private String description;
 }

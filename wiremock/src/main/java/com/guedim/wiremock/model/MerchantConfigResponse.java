@@ -1,10 +1,16 @@
 package com.guedim.wiremock.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class MerchantConfigResponse {
 
-	public String key;
-	public String value;	
+	private String key;
+	private String value;	
 }

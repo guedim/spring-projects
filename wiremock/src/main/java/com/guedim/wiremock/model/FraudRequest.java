@@ -8,6 +8,6 @@ import lombok.Data;
 @Data
 @Builder
 public class FraudRequest {
-	public Integer merchantId;
-	public BigDecimal value;
+	private Integer merchantId;
+	private BigDecimal value;
 }

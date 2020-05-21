@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.guedim.wiremock.model.MerchantConfigResponse;
 
-@FeignClient(name = "configurationFeignClient", fallback = ConfigurationFeignClientFallback.class)
+@FeignClient(name = "configurationFeignClient",  url = "${app.config-service.base-path}", fallback = ConfigurationFeignClientFallback.class)
 public interface ConfigurationFeignClient {
 
-	@GetMapping(value = "${app.config-service.base-path:}/configs/{id}")
+	@GetMapping(value = "/configs/{id}")
 	List<MerchantConfigResponse> getConfigs(@PathVariable("id") final Integer merchantId);
 }
 

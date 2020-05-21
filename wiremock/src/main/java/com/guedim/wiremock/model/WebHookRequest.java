@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class WebHookRequest {
-	public Integer merchantId;
-	public FraudState state;
+	
+	private Integer merchantId;
+	private FraudState state;
 }

@@ -57,6 +57,6 @@ public class ConfigurationFeignClientTest {
 
     @Test
     public void createSome() {
-    	client.getConfigs(1);
+    	 System.out.println(client.getConfigs(2));
     }
 }
