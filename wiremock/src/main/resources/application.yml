@@ -9,10 +9,10 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: jdbc:postgresql://localhost:5432/demo?current_schema=public
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/demo?current_schema=public}
     driverClassName: org.postgresql.Driver
-    username: demouser
-    password: demopassword
+    username: ${POSTGRES_USERNAME:demouser}
+    password: ${POSTGRES_PASSWORD:demopassword:}
   
 app:
    config-service:
@@ -23,5 +23,7 @@ app:
 logging:
   level:
     "liquibase" : info
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: TRACE
 
 

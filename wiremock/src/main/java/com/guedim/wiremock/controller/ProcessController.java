@@ -6,7 +6,7 @@ import static com.guedim.wiremock.utils.ProcessUtils.getUrlNotification;
 import static com.guedim.wiremock.utils.ProcessUtils.getWebHookConfiguration;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class ProcessController {
 		FraudResponse fraudResponse = null;
 
 		ProcessRecord processRecord = ProcessRecord.builder().merchantId(merchantId).value(value)
-				.creationDate(LocalDate.now()).processRecordState(ProcessRecodState.NEW).build();
+				.creationDate(LocalDateTime.now()).processRecordState(ProcessRecodState.NEW).build();
 
 		List<MerchantConfigResponse> merchantConfigurations = configurationService
 				.getMerchantConfigurations(merchantId);

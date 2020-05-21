@@ -2,6 +2,7 @@ package com.guedim.wiremock.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +31,7 @@ public class ProcessRecord {
 	private Long id;
 	
 	@Column(name = "creation_date", columnDefinition = "DATE")
-	private LocalDate creationDate;
+	private LocalDateTime creationDate;
 	
 	@Column(name = "merchant_id")
 	private Integer merchantId;
