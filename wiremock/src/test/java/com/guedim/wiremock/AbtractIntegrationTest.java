@@ -1,5 +1,13 @@
 package com.guedim.wiremock;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.post;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import org.junit.ClassRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -14,14 +22,20 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
+import org.testcontainers.containers.MockServerContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.client.WireMock;
 import com.netflix.loadbalancer.Server;
 import com.netflix.loadbalancer.ServerList;
 
-@ContextConfiguration(initializers = AbtractIntegrationTest.Initializer.class, classes = {
-		AbtractIntegrationTest.LocalRibbonClientConfiguration.class })
-@SpringBootTest(properties = "app.config-service.base-path=", webEnvironment = WebEnvironment.RANDOM_PORT)
+import lombok.extern.slf4j.Slf4j;
+
+
+@Slf4j
+@ContextConfiguration(initializers = AbtractIntegrationTest.Initializer.class, classes = {AbtractIntegrationTest.LocalRibbonClientConfiguration.class })
+@SpringBootTest(properties = { "app.config-service.base-path=","app.fraud-service.base-path=http://localhost:${wiremock.server.port}/evaluate"}, webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureWireMock(port = 0, stubs = "classpath*:/wiremock/**/mappings/**/*.json", files = "classpath:/wiremock")
 public class AbtractIntegrationTest {
 
@@ -31,13 +45,16 @@ public class AbtractIntegrationTest {
 	@ClassRule
 	public static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer().withDatabaseName("demo")
 			.withPassword("demopassword").withUsername("demouser");
+	
+
+	@ClassRule
+	public static MockServerContainer mockServer = new MockServerContainer().withExtraHost("merchantpage.com", "127.0.0.1");
+	
+	@ClassRule
+	public static WireMockServer wireMockServer = new WireMockServer(0);
+
 
 	@EnableAutoConfiguration
-	// @EnableFeignClients(clients = {ConfigurationFeignClient.class})
-	// @RibbonClients({@RibbonClient(name = "configurationFeignClient",
-	// configuration = LocalRibbonClientConfiguration.class)})
-	// @RibbonClient(name = "configurationFeignClient", configuration =
-	// LocalRibbonClientConfiguration.class)
 	public static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 		@Override
 		public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
@@ -48,11 +65,20 @@ public class AbtractIntegrationTest {
 					postgreSQLContainer.getUsername());
 			configurableApplicationContext.getEnvironment().getSystemProperties().put("spring.datasource.password",
 					postgreSQLContainer.getPassword());
+			
+			
+			
+			wireMockServer.start();
+		    int port = wireMockServer.port();
+		    log.info("Wiremock notification server is running on port = {}", port);
 
-			// configurableApplicationContext.getEnvironment().getSystemProperties().put("ribbon.eureka.eureka","false");
-			// configurableApplicationContext.getEnvironment().getSystemProperties().put("app.config-service.base-path","http://localhost:"+configurableApplicationContext.getEnvironment().getProperty("wiremock.server.port"));
-			// configurableApplicationContext.getEnvironment().getSystemProperties().put("configurationFeignClient.ribbon.listOfServers","http://localhost:"+configurableApplicationContext.getEnvironment().getProperty("wiremock.server.port"));
-
+		    WireMock.configureFor("merchant.page.com", port);	    
+		    stubFor(post(urlPathEqualTo("/webhook/notification"))
+		    		   .willReturn(aResponse()
+		    				  .withBody("Everything was just fine!")
+		    				  .withStatus(200)
+		    				  .withStatusMessage("Notification processed")
+		    				   ));
 		}
 	}
 
