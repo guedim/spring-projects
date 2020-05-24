@@ -4,11 +4,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.ClassRule;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -17,6 +20,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.containers.PostgreSQLContainer;
 
+import com.guedim.wiremock.model.FraudState;
 import com.guedim.wiremock.model.ProcessRecodState;
 import com.guedim.wiremock.model.ProcessRecord;
 import com.guedim.wiremock.repository.ProcessRecordRepository;
@@ -24,6 +28,7 @@ import com.guedim.wiremock.repository.ProcessRecordRepository;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ContextConfiguration(initializers = ProcessRecordIntegrationTest.Initializer.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ProcessRecordIntegrationTest {
 
 	@Autowired
@@ -43,33 +48,64 @@ public class ProcessRecordIntegrationTest {
 		
 		ProcessRecord result =   record = repository.save(record);
 		Optional<ProcessRecord> newRecord =  repository.findById(record.getId());
-
 		assertThat(result.getMerchantId().equals(1)).isTrue();
+		System.err.println("***********");
+		System.err.println("***********");
+		System.err.println("***********");
+		System.out.println(newRecord.get());
+		
+		
+		
 		
 		repository.updateErrorState(newRecord.get().getId());
+		newRecord =  repository.findById(newRecord.get().getId());
+		System.err.println("***********");
+		System.err.println("***********");
+		System.err.println("***********");
+		System.out.println(newRecord.get());
 		
-		//repository.updateEvaluated(FraudState.APPROVED, "fraudDescription", newRecord.get().getId());
 		
-		//repository.updateNotified("urlNotification", 200, newRecord.get().getId());
+		repository.updateEvaluated(FraudState.APPROVED, "fraudDescription", newRecord.get().getId());
+		newRecord =  repository.findById(newRecord.get().getId());
+		System.err.println("***********");
+		System.err.println("***********");
+		System.err.println("***********");
+		System.out.println(newRecord.get());
+		
+		
+		
+		repository.updateNotified("urlNotification", 200, newRecord.get().getId());
+		newRecord =  repository.findById(newRecord.get().getId());
+		System.err.println("***********");
+		System.err.println("***********");
+		System.err.println("***********");
+		System.out.println(newRecord.get());
+		
+		
 		
 		Thread.sleep(1000);
 		
-		Optional<ProcessRecord> finalRecord =  repository.findById(newRecord.get().getId());
+		List<ProcessRecord> finalRecord =  repository.findAll();
 		
 		Thread.sleep(1000);
 		
-		//System.out.println(finalRecord.get());
+		System.err.println("***********");
+		System.err.println("***********");
+		System.err.println("***********");
+		System.out.println(finalRecord);
+		
+		Thread.sleep(3000);
 
 	}
 	
 	@Test
     @Order(3)
 	public void findTest() throws InterruptedException {
-		Optional<ProcessRecord> finalRecord =  repository.findById(1L);
+		List<ProcessRecord> finalRecord =  repository.findAll();
 		
 		Thread.sleep(1000);
 		
-		System.out.println(finalRecord.get());
+		System.out.println(finalRecord);
 	}
 	
 

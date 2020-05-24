@@ -12,7 +12,7 @@ spring:
     url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/demo?current_schema=public}
     driverClassName: org.postgresql.Driver
     username: ${POSTGRES_USERNAME:demouser}
-    password: ${POSTGRES_PASSWORD:demopassword:}
+    password: ${POSTGRES_PASSWORD:demopassword}
   
 app:
    config-service:
@@ -27,3 +27,10 @@ logging:
     org.hibernate.type: TRACE
 
 
+ribbon:
+  eureka:
+   enabled: false
+   
+configurationFeignClient:
+  ribbon:
+    listOfServers: http://localhost:8090

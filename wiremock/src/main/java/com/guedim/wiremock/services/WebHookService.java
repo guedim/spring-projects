@@ -15,7 +15,7 @@ public class WebHookService {
 	@Autowired
 	private WebHookClient client;
 
-	public void sendWebHook(Integer merchantId, String url, FraudState fraudState) {
+	public Integer sendWebHook(Integer merchantId, String url, FraudState fraudState) {
 		
 		log.info("notified merchantId {} and to url {}", merchantId, url);
 		
@@ -23,8 +23,10 @@ public class WebHookService {
 		
 		if (httpCode.equals(200)) {
 			log.info("notified merchantId {} and to url {}", merchantId, url);
+			return 200;
 		} else {
 			log.warn("error notifying merchantId {} and to url {}. Getting response code {}", merchantId, url, httpCode);
+			return 500;
 		}
 	}
 }
