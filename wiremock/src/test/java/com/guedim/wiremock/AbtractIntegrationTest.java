@@ -1,14 +1,10 @@
 package com.guedim.wiremock;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.post;
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
 
 import org.junit.ClassRule;
+import org.mockserver.client.MockServerClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,8 +21,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.containers.MockServerContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 
-import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.client.WireMock;
 import com.netflix.loadbalancer.Server;
 import com.netflix.loadbalancer.ServerList;
 
@@ -48,10 +42,10 @@ public class AbtractIntegrationTest {
 	
 
 	@ClassRule
-	public static MockServerContainer mockServer = new MockServerContainer().withExtraHost("merchantpage.com", "127.0.0.1");
+	public static MockServerContainer mockServer = new MockServerContainer("5.10.0");
 	
-	@ClassRule
-	public static WireMockServer wireMockServer = new WireMockServer(0);
+	//@ClassRule
+	//public static WireMockServer wireMockServer = new WireMockServer(1080);
 
 
 	@EnableAutoConfiguration
@@ -67,18 +61,26 @@ public class AbtractIntegrationTest {
 					postgreSQLContainer.getPassword());
 			
 			
+			// Server mock with  MockServerContainer
+			mockServer.start();
+			String host = mockServer.getHost();
+			int port = mockServer.getServerPort();
+			log.info("Servermock notification server is running on host {}  and port = {}",host, port);
+			new MockServerClient(host, port)
+					.when(request().withPath("/webhook/notification").withMethod("POST"))
+					.respond(response().withBody("Everything was just fine!").withStatusCode(200)
+							.withReasonPhrase("Notification processed"));
 			
+			/*
+			// Server mock with wiremock
 			wireMockServer.start();
-		    int port = wireMockServer.port();
-		    log.info("Wiremock notification server is running on port = {}", port);
-
-		    WireMock.configureFor("merchant.page.com", port);	    
-		    stubFor(post(urlPathEqualTo("/webhook/notification"))
-		    		   .willReturn(aResponse()
-		    				  .withBody("Everything was just fine!")
-		    				  .withStatus(200)
-		    				  .withStatusMessage("Notification processed")
-		    				   ));
+			int port = wireMockServer.port();
+			log.info("Wiremock notification server is running on port = {}", port);
+			WireMock.configureFor("localhost", port);
+			stubFor(post(urlPathEqualTo("/webhook/notification"))
+					.willReturn(aResponse().withBody("Everything was just fine!").withStatus(200)
+							.withStatusMessage("Notification processed")));
+							*/
 		}
 	}
 
