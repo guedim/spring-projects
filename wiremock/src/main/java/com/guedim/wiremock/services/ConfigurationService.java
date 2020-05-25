@@ -18,6 +18,8 @@ public class ConfigurationService {
 	private ConfigurationFeignClient client;
 	
 	public List<MerchantConfigResponse> getMerchantConfigurations(Integer merchantId) {	
+		
+
 		log.info("getting configuration for merchantId {}", merchantId);
 		return client.getConfigs(merchantId);
 	}

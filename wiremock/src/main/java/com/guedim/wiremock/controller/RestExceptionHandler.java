@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.guedim.wiremock.model.ProcessRecodState;
 import com.guedim.wiremock.model.ProcessResponse;
-import com.guedim.wiremock.model.ProcessState;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,6 +22,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<ProcessResponse> handleConflict(RuntimeException ex, WebRequest request) {
 		
 		log.error("error processing request, message: {} ", ex.getMessage());
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ProcessResponse.builder().processId(1).state(ProcessState.ERROR).message(ex.getMessage()).build());
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ProcessResponse.builder().processId(1).state(ProcessRecodState.ERROR).message(ex.getMessage()).build());
 	}
 }

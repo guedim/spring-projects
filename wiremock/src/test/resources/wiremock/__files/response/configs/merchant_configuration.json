@@ -9,6 +9,6 @@
    },
    {
       "key":"urlNotification",
-      "value":"http://merchant.page.com/webhook/notification"
+      "value":"http://localhost:1080/webhook/notification"
    }
 ]

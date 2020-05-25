@@ -13,3 +13,6 @@ https://spring.io/projects/spring-cloud-contract
 
 http://wiremock.org/
 
+
+https://robintegg.com/2019/02/24/testing-spring-boot-applications-with-testcontainers-and-selenium-webdriver-part-three
+

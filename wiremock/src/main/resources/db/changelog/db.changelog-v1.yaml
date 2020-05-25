@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-process-record
+      author: guedim
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: process_record
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: process_record_pkey
+                  name: process_record_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: creation_date
+                  type: timestamp with time zone
+                  defaultValue: now()
+              - column:
+                  constraints:
+                    nullable: false
+                    unique: false
+                  name: merchant_id
+                  type: integer
+              - column:
+                  constraints:
+                    nullable: false
+                  name: value
+                  type: decimal
+                  defaultValue: 0
+              - column:
+                  constraints:
+                    nullable: false
+                  name: process_record_state
+                  type: varchar(32)
+                  defaultValue: 'NEW'
+              - column:
+                  name: fraud_state
+                  type: varchar(32)
+              - column:
+                  name: fraud_description
+                  type: varchar(255)
+              - column:
+                  name: url_notification
+                  type: varchar(1024)
+              - column:
+                  name: notification_http_code
+                  type: smallint            
+            tableName: process_record
