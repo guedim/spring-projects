@@ -1,16 +1,17 @@
-package com.guedim.wiremock;
+package com.guedim.wiremock.context;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 
-import org.junit.ClassRule;
+import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.cloud.netflix.ribbon.StaticServerList;
@@ -20,6 +21,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
@@ -28,72 +31,56 @@ import com.netflix.loadbalancer.ServerList;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 @Slf4j
 @ContextConfiguration(initializers = AbtractIntegrationTest.Initializer.class, classes = {AbtractIntegrationTest.LocalRibbonClientConfiguration.class })
 @SpringBootTest(properties = { "app.config-service.base-path=","app.fraud-service.base-path=http://localhost:${wiremock.server.port}/evaluate"}, webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureWireMock(port = 0, stubs = "classpath*:/wiremock/**/mappings/**/*.json", files = "classpath:/wiremock")
+@Testcontainers
 public class AbtractIntegrationTest {
 
 	@LocalServerPort
 	protected int port;
 
-	@ClassRule
-	public static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer().withDatabaseName("demo")
+	@Container
+	private static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>().withDatabaseName("demo")
 			.withPassword("demopassword").withUsername("demouser");
-	
 
-	//@ClassRule
-	//public static MockServerContainer mockServer = new MockServerContainer("5.10.0");
-	
-	@ClassRule
-	public static WireMockServer wireMockServer = new WireMockServer(1080);
+	private static WireMockServer wireMockServer = new WireMockServer(1080);
 
+	@BeforeAll
+	private static void wiremockNotificationServerSetUp() {
+		wireMockServer.start();
+		int port = wireMockServer.port();
+		log.info("Wiremock notification server is running on port = {}", port);
+		WireMock.configureFor("localhost", port);
+		stubFor(post(urlPathEqualTo("/webhook/notification")).willReturn(aResponse()
+				.withBody("Everything was just fine!").withStatus(200).withStatusMessage("Notification processed")));
+
+	}
 
 	@EnableAutoConfiguration
-	public static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+	private static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 		@Override
 		public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
-			postgreSQLContainer.start();
-			configurableApplicationContext.getEnvironment().getSystemProperties().put("spring.datasource.url",
-					postgreSQLContainer.getJdbcUrl());
-			configurableApplicationContext.getEnvironment().getSystemProperties().put("spring.datasource.username",
-					postgreSQLContainer.getUsername());
-			configurableApplicationContext.getEnvironment().getSystemProperties().put("spring.datasource.password",
-					postgreSQLContainer.getPassword());
-			
-			
-			// Server mock with  MockServerContainer
-			/*mockServer.start();
-			String host = mockServer.getHost();
-			int port = mockServer.getServerPort();
-			log.info("Servermock notification server is running on host =  {}  and port = {}",host, port);
-			new MockServerClient(host, port)
-					.when(request().withPath("/webhook/notification").withMethod("POST"))
-					.respond(response().withBody("Everything was just fine!").withStatusCode(200)
-							.withReasonPhrase("Notification processed"));*/
-			
-			// Server mock with wiremock
-			wireMockServer.start();
-			int port = wireMockServer.port();
-			log.info("Wiremock notification server is running on port = {}", port);
-			WireMock.configureFor("localhost", port);
-			stubFor(post(urlPathEqualTo("/webhook/notification"))
-					.willReturn(aResponse().withBody("Everything was just fine!").withStatus(200)
-							.withStatusMessage("Notification processed")));
+			TestPropertyValues
+					.of("spring.datasource.url=" + postgreSQLContainer.getJdbcUrl(),
+							"spring.datasource.username=" + postgreSQLContainer.getUsername(),
+							"spring.datasource.password=" + postgreSQLContainer.getPassword())
+					.applyTo(configurableApplicationContext);
 
 		}
 	}
 
 	@TestConfiguration
-	public static class LocalRibbonClientConfiguration {
-		
+	protected static class LocalRibbonClientConfiguration {
+
 		@Autowired
 		Environment env;
 
 		@Bean
 		public ServerList<Server> ribbonServerList() {
-			return new StaticServerList<>(new Server("localhost", Integer.valueOf(this.env.getProperty("wiremock.server.port"))  ));
+			return new StaticServerList<>(
+					new Server("localhost", Integer.valueOf(this.env.getProperty("wiremock.server.port"))));
 		}
 	}
 }
