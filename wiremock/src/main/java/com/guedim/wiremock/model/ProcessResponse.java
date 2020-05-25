@@ -8,7 +8,7 @@ import lombok.Data;
 public class ProcessResponse {
 
 	private Integer processId;
-	private ProcessState state;
+	private ProcessRecodState state;
 	private String message;
 
 }

@@ -25,7 +25,6 @@ import com.guedim.wiremock.model.ProcessRecodState;
 import com.guedim.wiremock.model.ProcessRecord;
 import com.guedim.wiremock.model.ProcessRequest;
 import com.guedim.wiremock.model.ProcessResponse;
-import com.guedim.wiremock.model.ProcessState;
 import com.guedim.wiremock.repository.ProcessRecordRepository;
 import com.guedim.wiremock.services.ConfigurationService;
 import com.guedim.wiremock.services.FraudEvaluateService;
@@ -90,6 +89,6 @@ public class ProcessController {
 			repository.updateNotified(url, httpResponseCode, processRecordId);
 		}
 
-		return ResponseEntity.ok(ProcessResponse.builder().processId(1).state(ProcessState.OK).build());
+		return ResponseEntity.ok(ProcessResponse.builder().processId(1).state(ProcessRecodState.NOTIFIED).build());
 	}
 }
