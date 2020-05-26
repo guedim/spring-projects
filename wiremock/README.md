@@ -60,8 +60,29 @@ This project process a request using next 4  dependencies:
 
 ## Integrations test<a id="integration_test"></a>
 
+This section shows implementation integration test.
+
 ### JPA Layer<a id="jpa_test"></a>
-explicar pruebas de jpa
+Integration test using ``TestContainers``. Find implementation in [RepositoryIntegrationTest.java)(https://github.com/guedim/spring-projects/blob/master/wiremock/src/test/java/com/guedim/wiremock/jpa/RepositoryIntegrationTest.java) class.
+
+Header class has configuration for running jpa integration test:
+
+https://github.com/guedim/spring-projects/blob/0e93f37f870253d220de6c09df4234262255621b/wiremock/src/test/java/com/guedim/wiremock/jpa/RepositoryIntegrationTest.java#L30-L35
+
+#### Configuration:
+##### @DataJpaTest: 
+Annotation for a JPA test that focuses only on JPA components. 
+##### @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE): 
+Don't replace the application default DataSource.
+##### @Testcontainers: 
+Annotation to find  all fields that are annotated with @Container and calls their container lifecycle methods.
+##### @ContextConfiguration(initializers = RepositoryIntegrationTest.Initializer.class): 
+Spring Initializer for starting Postgres database container
+
+
+https://github.com/guedim/spring-projects/blob/0e93f37f870253d220de6c09df4234262255621b/wiremock/src/test/java/com/guedim/wiremock/jpa/RepositoryIntegrationTest.java#L131-L141
+
+
 
 ### External services<a id="services_test"></a>
 explciar pruebas de services
