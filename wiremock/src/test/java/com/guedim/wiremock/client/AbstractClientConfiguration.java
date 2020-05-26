@@ -31,7 +31,7 @@ import com.netflix.loadbalancer.ServerList;
 		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, 
 		classes = {FraudEvaluationClient.class, WebHookClient.class, RestTemplate.class })
 @AutoConfigureWireMock(port = 0, stubs = "classpath*:/wiremock/**/mappings/**/*.json", files = "classpath:/wiremock")
-public class AbstractClientConfiguration {
+public abstract class AbstractClientConfiguration {
 
 	@TestConfiguration
 	@EnableFeignClients(clients = { ConfigurationFeignClient.class })

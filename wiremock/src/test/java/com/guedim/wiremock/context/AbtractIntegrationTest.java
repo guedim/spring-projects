@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest(properties = { "app.config-service.base-path=","app.fraud-service.base-path=http://localhost:${wiremock.server.port}/evaluate"}, webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureWireMock(port = 0, stubs = "classpath*:/wiremock/**/mappings/**/*.json", files = "classpath:/wiremock")
 @Testcontainers
-public class AbtractIntegrationTest {
+public abstract class AbtractIntegrationTest {
 
 	@LocalServerPort
 	protected int port;
