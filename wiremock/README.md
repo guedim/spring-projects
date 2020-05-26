@@ -63,24 +63,48 @@ This project process a request using next 4  dependencies:
 This section shows implementation integration test.
 
 ### JPA Layer<a id="jpa_test"></a>
-Integration test using ``TestContainers``. Find implementation in [RepositoryIntegrationTest.java)(https://github.com/guedim/spring-projects/blob/master/wiremock/src/test/java/com/guedim/wiremock/jpa/RepositoryIntegrationTest.java) class.
+Integration test using ``TestContainers``. Find implementation in [RepositoryIntegrationTest.java](https://github.com/guedim/spring-projects/blob/master/wiremock/src/test/java/com/guedim/wiremock/jpa/RepositoryIntegrationTest.java) class.
 
 Header class has configuration for running jpa integration test:
 
 https://github.com/guedim/spring-projects/blob/0e93f37f870253d220de6c09df4234262255621b/wiremock/src/test/java/com/guedim/wiremock/jpa/RepositoryIntegrationTest.java#L30-L35
 
-#### Configuration:
-##### @DataJpaTest: 
-Annotation for a JPA test that focuses only on JPA components. 
-##### @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE): 
-Don't replace the application default DataSource.
-##### @Testcontainers: 
-Annotation to find  all fields that are annotated with @Container and calls their container lifecycle methods.
-##### @ContextConfiguration(initializers = RepositoryIntegrationTest.Initializer.class): 
-Spring Initializer for starting Postgres database container
+```java
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ContextConfiguration(initializers = RepositoryIntegrationTest.Initializer.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Testcontainers
+public class RepositoryIntegrationTest {
+```
 
+##### @DataJpaTest: 
+- Annotation for a JPA test that focuses only on JPA components. 
+
+##### @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE): 
+- ``NONE`` configuration do not replace the application default DataSource.
+
+##### @Testcontainers: 
+- Annotation to find  all fields that are annotated with @Container and calls their container lifecycle methods.
+
+##### @ContextConfiguration(initializers = RepositoryIntegrationTest.Initializer.class): 
+- Spring Initializer for starting Postgres database container.
 
 https://github.com/guedim/spring-projects/blob/0e93f37f870253d220de6c09df4234262255621b/wiremock/src/test/java/com/guedim/wiremock/jpa/RepositoryIntegrationTest.java#L131-L141
+
+
+```java
+protected static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+	@Override
+	public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
+		TestPropertyValues
+			.of("spring.datasource.url=" + postgreSQLContainer.getJdbcUrl(),
+				"spring.datasource.username=" + postgreSQLContainer.getUsername(),
+				"spring.datasource.password=" + postgreSQLContainer.getPassword())
+			.applyTo(configurableApplicationContext);
+	}
+}
+```
 
 
 
@@ -95,7 +119,7 @@ explicar end to end
 
 - Clone this repository 
 
-```
+```sh
  git https://github.com/guedim/spring-projects.git
 ```
 
@@ -109,7 +133,7 @@ cd spring-projects/wiremock
 
 - For running integration test (without external system dependencies and without a ``Postgres`` database) execute next command:
  
-```
+```sh
 mvn test
 ```
 
