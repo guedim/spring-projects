@@ -187,7 +187,7 @@ cd spring-projects/wiremock
 
 ### Run Integration Test
 
-- For running integration test (without external system dependencies and without a ``Postgres`` database) execute next command:
+- For running integration test (using ``WireMock`` and  ``TestContainers`` with a  ``Postgres`` database) execute next command:
  
 ```sh
 mvn test
