@@ -30,7 +30,3 @@ logging:
 ribbon:
   eureka:
    enabled: false
-   
-configurationFeignClient:
-  ribbon:
-    listOfServers: http://localhost:8090
