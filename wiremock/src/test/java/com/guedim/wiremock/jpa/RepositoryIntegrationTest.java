@@ -128,7 +128,7 @@ public class RepositoryIntegrationTest {
 	private static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>().withDatabaseName("demo")
 			.withPassword("demopassword").withUsername("demouser");
 
-	private static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+	protected static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 		@Override
 		public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
 			TestPropertyValues

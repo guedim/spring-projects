@@ -1,4 +1,4 @@
-package com.guedim.wiremock.context;
+ package com.guedim.wiremock.context;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
@@ -59,7 +59,7 @@ public class AbtractIntegrationTest {
 	}
 
 	@EnableAutoConfiguration
-	private static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+	protected static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 		@Override
 		public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
 			TestPropertyValues
