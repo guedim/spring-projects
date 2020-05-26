@@ -63,9 +63,10 @@ This project process a request using next 4  dependencies:
 This section shows implementation integration test.
 
 ### JPA Layer<a id="jpa_test"></a>
+
 Integration test using ``TestContainers``. Find implementation in [RepositoryIntegrationTest.java](https://github.com/guedim/spring-projects/blob/master/wiremock/src/test/java/com/guedim/wiremock/jpa/RepositoryIntegrationTest.java) class.
 
-Header class has configuration for running jpa integration test:
+Header annotation class has configuration for running jpa integration test:
 
 https://github.com/guedim/spring-projects/blob/0e93f37f870253d220de6c09df4234262255621b/wiremock/src/test/java/com/guedim/wiremock/jpa/RepositoryIntegrationTest.java#L30-L35
 
@@ -109,10 +110,65 @@ protected static class Initializer implements ApplicationContextInitializer<Conf
 
 
 ### External services<a id="services_test"></a>
-explciar pruebas de services
+
+Integration test using ``Wiremock``. Find implementation in [AbstractClientConfiguration.java](https://github.com/guedim/spring-projects/blob/master/wiremock/src/test/java/com/guedim/wiremock/client/AbstractClientConfiguration.java) class.
+
+Header annotation class has configuration for web client integration test:
+
+https://github.com/guedim/spring-projects/blob/0840b2ea53c4967dc32dafce564070be5e35bc87/wiremock/src/test/java/com/guedim/wiremock/client/AbstractClientConfiguration.java#L28-L34
+
+```java
+@ContextConfiguration(classes = { AbstractClientConfiguration.ContextConfiguration.class })
+@SpringBootTest(
+		properties = { "app.config-service.base-path=","app.fraud-service.base-path=http://localhost:${wiremock.server.port}/evaluate" }, 
+		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, 
+		classes = {FraudEvaluationClient.class, WebHookClient.class, RestTemplate.class })
+@AutoConfigureWireMock(port = 0, stubs = "classpath*:/wiremock/**/mappings/**/*.json", files = "classpath:/wiremock")
+public class AbstractClientConfiguration {
+```
+
+##### @ContextConfiguration: 
+- Define which Spring @Configuration to load.
+- ContextConfiguration configuration class for prepare Feign clients and RestTemplateBuilder. 
+
+##### @SpringBootTest: 
+- This annotation allow us to create the ApplicationContext used in integration tests via SpringApplication.
+- we override the external services base path for using ``WireMock`` endpoints.
+
+##### @AutoConfigureWireMock: 
+- Annotation to start a mock web server with our stubs and mapping definitions.
+
 
 ### End to End test<a id="context_test"></a>
-explicar end to end
+
+End to End testing using ``Wiremock`` and ``TestContainers``. Find implementation in [AbtractIntegrationTest.java](https://github.com/guedim/spring-projects/blob/master/wiremock/src/test/java/com/guedim/wiremock/context/AbtractIntegrationTest.java) class.
+
+Header annotation class has configuration for running End to End  test:
+
+https://github.com/guedim/spring-projects/blob/0840b2ea53c4967dc32dafce564070be5e35bc87/wiremock/src/test/java/com/guedim/wiremock/context/AbtractIntegrationTest.java#L35-L39
+
+
+```java
+@ContextConfiguration(initializers = AbtractIntegrationTest.Initializer.class, classes = {AbtractIntegrationTest.LocalRibbonClientConfiguration.class })
+@SpringBootTest(properties = { "app.config-service.base-path=","app.fraud-service.base-path=http://localhost:${wiremock.server.port}/evaluate"}, webEnvironment = WebEnvironment.RANDOM_PORT)
+@AutoConfigureWireMock(port = 0, stubs = "classpath*:/wiremock/**/mappings/**/*.json", files = "classpath:/wiremock")
+@Testcontainers
+public class AbtractIntegrationTest {
+```
+
+
+##### @ContextConfiguration: 
+- Define which Spring @Configuration to load.
+- Initializer class set up a Postgres container. 
+- LocalRibbonClientConfiguration class add wiremock port server for finding local endpoints.
+
+##### @SpringBootTest: 
+- This annotation allow us to create the ApplicationContext used in integration tests via SpringApplication.
+- we override the external services base path for using ``WireMock`` endpoints.
+
+##### @AutoConfigureWireMock: 
+- Annotation to start a mock web server with our stubs and mapping definitions.
+
 
 
 ## Setup Project<a id="setup_project"></a>
