@@ -181,7 +181,7 @@ public class AbtractIntegrationTest {
 
 - Move to the directory `wiremock`
 
-```
+```sh
 cd spring-projects/wiremock
 ```
 
