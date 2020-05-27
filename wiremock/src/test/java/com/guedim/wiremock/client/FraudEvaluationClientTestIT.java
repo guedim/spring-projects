@@ -11,7 +11,7 @@ import com.guedim.wiremock.clients.FraudEvaluationClient;
 import com.guedim.wiremock.model.FraudResponse;
 import com.guedim.wiremock.model.FraudState;
 
-public class FraudEvaluationClientTest extends AbstractClientConfiguration {
+public class FraudEvaluationClientTestIT extends AbstractClientConfigurationIT {
 
 	@Autowired
 	private FraudEvaluationClient client;

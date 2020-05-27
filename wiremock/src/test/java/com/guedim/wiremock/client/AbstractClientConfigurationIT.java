@@ -25,13 +25,13 @@ import com.guedim.wiremock.clients.WebHookClient;
 import com.netflix.loadbalancer.Server;
 import com.netflix.loadbalancer.ServerList;
 
-@ContextConfiguration(classes = { AbstractClientConfiguration.ContextConfiguration.class })
+@ContextConfiguration(classes = { AbstractClientConfigurationIT.ContextConfiguration.class })
 @SpringBootTest(
 		properties = { "app.config-service.base-path=","app.fraud-service.base-path=http://localhost:${wiremock.server.port}/evaluate" }, 
 		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, 
 		classes = {FraudEvaluationClient.class, WebHookClient.class, RestTemplate.class })
 @AutoConfigureWireMock(port = 0, stubs = "classpath*:/wiremock/**/mappings/**/*.json", files = "classpath:/wiremock")
-public abstract class AbstractClientConfiguration {
+public abstract class AbstractClientConfigurationIT {
 
 	@TestConfiguration
 	@EnableFeignClients(clients = { ConfigurationFeignClient.class })

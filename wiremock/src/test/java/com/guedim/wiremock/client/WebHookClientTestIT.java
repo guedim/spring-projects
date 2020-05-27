@@ -10,7 +10,7 @@ import org.springframework.core.env.Environment;
 import com.guedim.wiremock.clients.WebHookClient;
 import com.guedim.wiremock.model.FraudState;
 
-public class WebHookClientTest extends AbstractClientConfiguration {
+public class WebHookClientTestIT extends AbstractClientConfigurationIT {
 	
 	
 	private String url = null;

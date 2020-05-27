@@ -11,7 +11,7 @@ import com.guedim.wiremock.clients.ConfigurationFeignClient;
 import com.guedim.wiremock.model.MerchantConfigResponse;
 import com.guedim.wiremock.utils.ProcessUtils;
 
-public class ConfigurationFeignClientTest extends AbstractClientConfiguration {
+public class ConfigurationFeignClientTestIT extends AbstractClientConfigurationIT {
 
 	
     @Autowired

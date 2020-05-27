@@ -15,7 +15,7 @@ import com.guedim.wiremock.model.ProcessRecodState;
 import com.guedim.wiremock.model.ProcessRequest;
 import com.guedim.wiremock.model.ProcessResponse;
 
-public class FullContextTest extends AbtractIntegrationTest {
+public class FullContextTestIT extends AbtractIntegrationTestIT {
 	
 	@Autowired
 	private TestRestTemplate restTemplate;

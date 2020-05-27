@@ -32,11 +32,11 @@ import com.netflix.loadbalancer.ServerList;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@ContextConfiguration(initializers = AbtractIntegrationTest.Initializer.class, classes = {AbtractIntegrationTest.LocalRibbonClientConfiguration.class })
+@ContextConfiguration(initializers = AbtractIntegrationTestIT.Initializer.class, classes = {AbtractIntegrationTestIT.LocalRibbonClientConfiguration.class })
 @SpringBootTest(properties = { "app.config-service.base-path=","app.fraud-service.base-path=http://localhost:${wiremock.server.port}/evaluate"}, webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureWireMock(port = 0, stubs = "classpath*:/wiremock/**/mappings/**/*.json", files = "classpath:/wiremock")
 @Testcontainers
-public abstract class AbtractIntegrationTest {
+public abstract class AbtractIntegrationTestIT {
 
 	@LocalServerPort
 	protected int port;

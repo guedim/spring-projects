@@ -29,10 +29,10 @@ import com.guedim.wiremock.repository.ProcessRecordRepository;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ContextConfiguration(initializers = RepositoryIntegrationTest.Initializer.class)
+@ContextConfiguration(initializers = RepositoryIntegrationTestIT.Initializer.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Testcontainers
-public class RepositoryIntegrationTest {
+public class RepositoryIntegrationTestIT {
 
 	private static Long processId = null;
 

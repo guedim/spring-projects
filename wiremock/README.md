@@ -190,7 +190,7 @@ cd spring-projects/wiremock
 - For running integration test (using ``WireMock`` and  ``TestContainers`` with a  ``Postgres`` database) execute next command:
  
 ```sh
-mvn test
+mvn verify
 ```
 
 
