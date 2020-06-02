@@ -1,0 +1,61 @@
+version: '3.7'
+
+volumes:
+    prometheus_data: {}
+    grafana_data: {}
+    postgres-data: {}
+    
+services:
+  # Define an InfluxDB service
+  influxdb:
+    image: influxdb:latest
+    volumes:
+      - ./data/influxdb:/var/lib/influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      - INFLUXDB_DB=metrics
+      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
+      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}    
+      
+  # Define a Chronograf service
+  chronograf:
+    image: chronograf:latest
+    environment:
+      INFLUXDB_URL: http://influxdb:8086
+    ports:
+      - "8888:8888"
+    links:
+      - influxdb
+      
+  # Define a prometheus service
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./src/main/resources:/etc/prometheus/
+      - prometheus_data:/data/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 9090:9090
+    extra_hosts:
+      - "my.local.machine:172.16.222.111"
+      - "my.local.machine:127.0.0.1"
+      
+  # Define a postgres service
+  database:
+    image: "postgres"
+    environment: 
+      POSTGRES_USER: demouser
+      POSTGRES_PASSWORD: demopassword
+      POSTGRES_DB: demo
+    expose:
+      - "5433"
+    ports: 
+      - "5433:5433"  
+    volumes:
+      - postgres-data:/var/lib/postgresql/data/
+    command: -p 5433

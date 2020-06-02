@@ -1,0 +1,45 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: hikari-monitoring-service
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5433/demo?current_schema=public}
+    driverClassName: org.postgresql.Driver
+    username: ${POSTGRES_USERNAME:demouser}
+    password: ${POSTGRES_PASSWORD:demopassword}   
+    initialization-mode: never
+    hikari:
+      pool-name: postgres-hikari
+      connectionTimeout: 20000
+      minimum-idle: 2
+      idleTimeout: 60000
+      maximum-pool-size: 5
+      maxLifetime: 10000
+      auto-commit: false
+      connectionTestQuery: SELECT 1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["*"]
+  metrics:
+    export:
+      influx:
+        enabled: true
+        db: metrics
+        uri: ${INFLUXDB_URL:http://localhost:8086}
+    tags:
+      application: ${spring.application.name}
+      region: my-region
+      
+logging:
+  level:
+    "liquibase" : info
+    org.hibernate.SQL: DEBUG
+    com.zaxxer.hikari.HikariConfig: DEBUG
+    org.hibernate.type: TRACE
