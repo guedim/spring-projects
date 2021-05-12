@@ -176,7 +176,7 @@ public class AbtractIntegrationTest {
 - Clone this repository 
 
 ```sh
- git https://github.com/guedim/spring-projects.git
+ git clone https://github.com/guedim/spring-projects.git
 ```
 
 - Move to the directory `wiremock`
