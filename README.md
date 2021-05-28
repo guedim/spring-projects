@@ -17,6 +17,8 @@ Some spring sample projects with different tools or frameworks.
 
 - [SpringBoot end-to-end microservices test](./wiremock/) with  [Wiremock](http://wiremock.org/) and [TestContainer integration](http://testcontainers.org/).
 
+- [SpringBoot grpc](./grpc-flix/).
+
 
 
 ## Secutiry
