@@ -12,18 +12,13 @@ This sample project is based on [Microservices with gRPC [Java + Spring Boot  + 
 
 There are 3 services in this demo:
 
-- agregator service.
-- user service: Use ``H2 Database`` database.
-- Item service: uses ``H2 Database`` database.
+- aggregator service: Is a HTTP Rest API using Spring Boot.
+- user service: Is a gRPC service using Spring Boot with a ``H2 Database`` database.
+- Item service: Is a gRPC service using Spring Boot with a ``H2 Database`` database.
 
 <br/>
 
 ![Services](services.png "Services flow")
-
-
-Each service is a Spring Boot project which uses non-mocked DB started by ``TestContainers`` library.  
-
-- test-runner: Is a module to start ``User`` and ``Item`` services and their dependencies (``Postgeres`` & ``Redis``) in order  to perform end-to-end tests.
 
 
 ### Setup
@@ -31,13 +26,13 @@ Each service is a Spring Boot project which uses non-mocked DB started by ``Test
 - Clone this repository 
 
 ```
- git https://github.com/guedim/spring-projects.git
+ git clone https://github.com/guedim/spring-projects.git
 ```
 
-- Move to the directory `testcontainer`
+- Move to the directory `grpc-flix`
 
 ```
-cd spring-projects/testcontainer
+cd spring-projects/grpc-flix
 ```
 
 ### Build project & Docker images
@@ -66,4 +61,4 @@ mvn test
 
 # References
 
-https://dzone.com/articles/easy-integration-testing-with-testcontainers
+https://www.udemy.com/course/grpc-the-complete-guide-for-java-developers/
