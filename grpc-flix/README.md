@@ -18,7 +18,7 @@ There are 3 services in this demo:
 
 <br/>
 
-![Services](services.png "Services flow")
+![Services](./services.png "Services flow")
 
 
 ### Setup
