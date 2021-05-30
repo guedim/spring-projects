@@ -37,28 +37,41 @@ cd spring-projects/grpc-flix
 
 ### Build project & Docker images
 
-- To build User and Item services and build docker images, run next script:
+- To build all services docker images (aggregator, user and movies) run next command:
  
 ```
-sh build-all.sh
+docker-compose build
 ```
 
 
-### Run end-to-end tests
+### Start services 
 
-To run end-to-end tests go to `test-runner` project:
-
-```
-cd spring-projects/testcontainer/test-runner
-```
-
-Run `mvn test` for excuting end-to-end Test:
+For create, start and attach all containers, please run next docker-componse command:
 
 ```
-mvn test
+ docker-compose up
 ```
 
+### Test services
+
+Finally, ``aggregaror-service`` expose two methods
+- ``/user/{loginId}``: GET http method for listing user recommended genre movies. This http method call gRPC ``user-service`` and ``movie-service``.
+  - ``user-service``: Find user by loginId and returns user genre. 
+  - ``movie-service``: Return all movies with same  genre.
+
+For testing purposes, run next commands:
+```
+ curl --location --request GET 'localhost:8080/user/matico'
+```
+
+- ``/user/``: PUT http method for update user genre movies. This http method call gRPC ``movie-service``.
+
+For testing purposes, run next commands:
+```
+ curl --location --request PUT 'localhost:8080/user/' --header 'Content-Type: application/json' --data-raw '{"loginId": "matico","genre": "DRAMA" }'
+```
 
 # References
 
-https://www.udemy.com/course/grpc-the-complete-guide-for-java-developers/
+- https://www.udemy.com/course/grpc-the-complete-guide-for-java-developers/
+- https://2much2learn.com/mavengradle-based-multi-module-spring-boot-microservices/

@@ -1,0 +1,47 @@
+version: '3.9'
+
+# Define services
+services:
+
+  # Aggregator service
+  aggregator-service:
+    build:
+      context: ./aggregator-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+    links:
+      - user-service
+      - movie-service
+    environment:
+      - "grpc.client.user-service.address=static://user-service:6565"
+      - "grpc.client.movie-service.address=static://movie-service:7575"
+    networks:
+      - backend
+
+  # User service
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    ports:
+      - "6565:6565"
+    restart: always
+    networks:
+      - backend
+
+  # Movie service
+  movie-service:
+    build:
+      context: ./movie-service
+      dockerfile: Dockerfile
+    ports:
+      - "7575:7575"
+    restart: always
+    networks:
+      - backend
+
+# Networks to be created to facilitate communication between containers
+networks:
+  backend:
