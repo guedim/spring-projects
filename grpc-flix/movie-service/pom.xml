@@ -16,9 +16,8 @@
     <artifactId>movie-service</artifactId>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <spring-boot.build-image.imageName>$DOCKER_USER_NAME$/${parent.artifactId}-${project.artifactId}</spring-boot.build-image.imageName>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
     <dependencies>
