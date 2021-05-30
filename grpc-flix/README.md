@@ -74,5 +74,6 @@ For testing purposes, run next commands:
 # References
 
 - https://www.udemy.com/course/grpc-the-complete-guide-for-java-developers/
-- https://2much2learn.com/mavengradle-based-multi-module-spring-boot-microservices/
+- https://github.com/guedim/grpc/tree/master/grpc-java-course
 - https://www.vinsguru.com/reactive-grpc-in-java/git 
+- https://2much2learn.com/mavengradle-based-multi-module-spring-boot-microservices/
