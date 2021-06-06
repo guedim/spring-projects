@@ -1,0 +1,52 @@
+version: '3.9'
+
+# Define services
+services:
+
+  # Mongo DB
+  mongodb:
+    image: mongo:latest
+    container_name: mongo-container
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./database/mongodb:/data/db
+    healthcheck:
+      test: "echo 'db.stats().ok' | mongo localhost:27017/foodorderingdb --quiet"
+      start_period: 30s
+    networks:
+      - springbankNet
+
+  # mysql
+  mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=springbankRootPsw
+      - MYSQL_DATABASE=userdb
+    volumes:
+      - ./database/mysqldb:/var/lib/mysql
+    healthcheck:
+      test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
+      start_period: 30s
+    networks:
+      - springbankNet
+
+  # axon
+  axon-server:
+    image: axoniq/axonserver:latest
+    container_name: axon-server
+    restart: unless-stopped
+    ports:
+      - "8024:8024"
+      - "8124:8124"
+    networks:
+      - springbankNet
+
+# Networks to be created to facilitate communication between containers
+networks:
+  springbankNet:
