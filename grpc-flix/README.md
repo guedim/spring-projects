@@ -46,7 +46,7 @@ docker-compose build
 
 ### Start services 
 
-For create, start and attach all containers, please run next docker-componse command:
+For create, start and attach all containers, please run next docker-compose command:
 
 ```
  docker-compose up
