@@ -83,7 +83,6 @@ public class UserAggregate {
     @EventSourcingHandler
     public void on(UserUpdatedEvent event) {
         this.user = event.getUser();
-
     }
 
     @EventSourcingHandler
