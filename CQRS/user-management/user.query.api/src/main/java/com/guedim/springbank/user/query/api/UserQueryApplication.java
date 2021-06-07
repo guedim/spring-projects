@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Import;
 public class UserQueryApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(UserQueryApplication.class, args);
 	}
 
