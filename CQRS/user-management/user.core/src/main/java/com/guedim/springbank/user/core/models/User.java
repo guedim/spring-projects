@@ -27,7 +27,7 @@ public class User {
     private String lastName;
     @Email(message = "please provide a valida email address")
     private String emailAddress;
-    @Valid
     @NotNull(message = "please provide account credentials")
+    @Valid
     private Account account;
 }

@@ -29,7 +29,7 @@ public class RegisterUserController {
     }
 
     @PostMapping
-    public ResponseEntity<RegisterUserResponse> regusterUser(@Valid @RequestBody RegisterUserCommand command){
+    public ResponseEntity<RegisterUserResponse> registerUser(@RequestBody @Valid RegisterUserCommand command){
 
         var id = UUID.randomUUID().toString();
         command.setId(id);
