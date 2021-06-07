@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Import;
 public class UserCommandApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(UserCommandApplication.class, args);
 	}
 

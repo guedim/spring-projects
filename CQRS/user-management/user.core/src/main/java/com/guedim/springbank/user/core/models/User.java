@@ -24,10 +24,10 @@ public class User {
     @NotEmpty(message = "first name is mandatory")
     private String firstName;
     @NotEmpty(message = "last name is mandatory")
-    private String lastname;
+    private String lastName;
     @Email(message = "please provide a valida email address")
-    private String email;
-    @Valid
+    private String emailAddress;
     @NotNull(message = "please provide account credentials")
+    @Valid
     private Account account;
 }
