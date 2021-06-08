@@ -1,16 +1,13 @@
 package com.guedim.springbank.user.cmd.api.controllers;
 
 import com.guedim.springbank.user.cmd.api.commands.RemoveUserCommand;
-import com.guedim.springbank.user.cmd.api.commands.UpdateUserCommand;
-import com.guedim.springbank.user.cmd.api.dto.BaseResponse;
+import com.guedim.springbank.user.core.dto.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/api/v1/removeUser")

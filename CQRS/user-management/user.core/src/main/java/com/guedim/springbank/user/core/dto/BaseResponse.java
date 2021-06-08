@@ -1,4 +1,4 @@
-package com.guedim.springbank.user.cmd.api.dto;
+package com.guedim.springbank.user.core.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
