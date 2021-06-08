@@ -13,9 +13,11 @@
 	<version>1.0.0</version>
 	<name>user.cmd.api</name>
 	<description>User command api project</description>
+
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -59,12 +61,7 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.guedim.springbank</groupId>
-			<artifactId>user.core</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
+
 	</dependencies>
 
 	<build>

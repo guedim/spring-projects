@@ -2,7 +2,6 @@ package com.guedim.springbank.user.cmd.api.controllers;
 
 import com.guedim.springbank.user.cmd.api.commands.RegisterUserCommand;
 import com.guedim.springbank.user.cmd.api.dto.RegisterUserResponse;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,7 @@ public class RegisterUserController {
 
     @Autowired
     public RegisterUserController(CommandGateway commandGateway) {
+
         this.commandGateway = commandGateway;
     }
 
@@ -33,6 +33,7 @@ public class RegisterUserController {
 
         var id = UUID.randomUUID().toString();
         command.setId(id);
+
         try {
             commandGateway.sendAndWait(command);
             return new ResponseEntity<>(new RegisterUserResponse(id,"User successfully registered !"), HttpStatus.CREATED);
@@ -41,6 +42,5 @@ public class RegisterUserController {
             log.error(e.toString());
             return new ResponseEntity<>(new RegisterUserResponse(id, SafeErrorMessage), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 }
