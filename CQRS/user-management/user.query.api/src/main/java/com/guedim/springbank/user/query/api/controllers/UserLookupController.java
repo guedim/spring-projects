@@ -4,7 +4,6 @@ import com.guedim.springbank.user.query.api.dto.UserLookupResponse;
 import com.guedim.springbank.user.query.api.queries.FindAllUserQuery;
 import com.guedim.springbank.user.query.api.queries.FindUserByIdQuery;
 import com.guedim.springbank.user.query.api.queries.SearchUsersQuery;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
@@ -78,5 +77,4 @@ public class UserLookupController {
             return new ResponseEntity<>(new UserLookupResponse(safeErrorMessage), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }
