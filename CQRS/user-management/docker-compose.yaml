@@ -3,6 +3,25 @@ version: '3.9'
 # Define services
 services:
 
+  # api-gateeway
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "2000:2000"
+    restart: always
+    depends_on:
+      - user.cmd-service
+      - user.query-service
+    links:
+      - user.cmd-service
+      - user.query-service
+    env_file:
+      - .env
+    networks:
+      - springbankNet
+
   # user-cmd service
   user.cmd-service:
     build:
