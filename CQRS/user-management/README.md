@@ -27,12 +27,14 @@ There are 5 services in this demo:
 
 User Command API & User Command Query services
 
-![User Management ](./user.png "Services flow")
+![User Management ](./user.png " User services flow")
 
 
 #### Bank Management
 
 Bank Command API & Bank Command Query services
+
+![Account Management ](./account.png "Account services flow")
 
 ### Setup
 
