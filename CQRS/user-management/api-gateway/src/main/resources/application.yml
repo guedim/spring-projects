@@ -6,21 +6,21 @@ spring:
     gateway:
       routes:
         - id: userCmdApi-RegisterUser
-          uri: http://localhost:8081/api/v1/registerUser
+          uri: http://${user.cmd.service:localhost:8081}/api/v1/registerUser
           predicates:
             - Path=/api/v1/registerUser
 
         - id: userCmdApi-UpdateUser
-          uri: http://localhost:8081/api/v1/updateUser/**
+          uri: http://${user.cmd.service:localhost:8081}/api/v1/updateUser/**
           predicates:
             - Path=/api/v1/updateUser/**
 
         - id: userCmdApi-RemoveUser
-          uri: http://localhost:8081/api/v1/removeUser/**
+          uri: http://${user.cmd.service:localhost:8081}/api/v1/removeUser/**
           predicates:
             - Path=/api/v1/removeUser/**
 
         - id: userQueryApi
-          uri: http://localhost:8082/api/v1/userLookup/**
+          uri: http://${user.query.service:localhost:8082}/api/v1/userLookup/**
           predicates:
             - Path=/api/v1/userLookup/**
