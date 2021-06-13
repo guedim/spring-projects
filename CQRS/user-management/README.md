@@ -23,6 +23,17 @@ There are 5 services in this demo:
 ![Services](./user-management.png "Services flow")
 
 
+#### User Management
+
+User Command API & User Command Query services
+
+![User Management ](./user.png "Services flow")
+
+
+#### Bank Management
+
+Bank Command API & Bank Command Query services
+
 ### Setup
 
 - Clone this repository 

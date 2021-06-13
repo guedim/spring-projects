@@ -3,6 +3,80 @@ version: '3.9'
 # Define services
 services:
 
+  # api-gateeway
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "2000:2000"
+    restart: always
+    depends_on:
+      - user.cmd-service
+      - user.query-service
+    links:
+      - user.cmd-service
+      - user.query-service
+    env_file:
+      - .env
+    networks:
+      - springbankNet
+
+  # user-cmd service
+  user.cmd-service:
+    build:
+      context: ./user.cmd.api
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    restart: always
+    depends_on:
+      - user.oauth-service
+    links:
+      - mongodb
+      - axon-server
+    env_file:
+      - .env
+    networks:
+      - springbankNet
+
+  # user-query service
+  user.query-service:
+    build:
+      context: ./user.query.api
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    restart: always
+    depends_on:
+      - user.oauth-service
+    links:
+      - mongodb
+      - axon-server
+    env_file:
+      - .env
+    networks:
+      - springbankNet
+
+  # user-oauth service
+  user.oauth-service:
+    build:
+      context: ./user.oauth2.0
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    restart: always
+    depends_on:
+      - mongodb
+      - axon-server
+    links:
+      - mongodb
+      - axon-server
+    env_file:
+      - .env
+    networks:
+      - springbankNet
+
   # Mongo DB
   mongodb:
     image: mongo:latest
