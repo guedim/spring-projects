@@ -1,0 +1,18 @@
+# Spring
+server:
+  port: 9091
+
+# mongodb
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: bank
+
+# security
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: springbankSigningKey

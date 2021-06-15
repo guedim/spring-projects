@@ -1,14 +1,23 @@
 # Spring
 server:
-  port: 9091
+  port: 9092
 
-# mongodb
+# mongodb and mysql
 spring:
   data:
     mongodb:
       host: localhost
       port: 27017
       database: bank
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate:
+      dll-auto: update
+  datasource:
+    url: jdbc:mysql://localhost:3306/bank
+    username: root
+    password: springbankRootPsw
 
 # security
 security:
