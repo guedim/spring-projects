@@ -14,4 +14,10 @@
         <maven.compiler.target>14</maven.compiler.target>
     </properties>
 
+    <modules>
+        <module>bankacc.core</module>
+        <module>bankacc.cmd.api</module>
+        <module>bankacc.query.api</module>
+    </modules>
+
 </project>
