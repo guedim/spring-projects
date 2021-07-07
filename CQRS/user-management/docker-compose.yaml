@@ -14,9 +14,11 @@ services:
     depends_on:
       - user.cmd-service
       - user.query-service
+      - bank.cmd-service
     links:
       - user.cmd-service
       - user.query-service
+      - bank.cmd-service
     env_file:
       - .env
     networks:
