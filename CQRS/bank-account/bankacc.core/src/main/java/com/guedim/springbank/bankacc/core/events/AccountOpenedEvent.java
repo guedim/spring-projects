@@ -13,6 +13,6 @@ public class AccountOpenedEvent {
     private String id;
     private String accountHolderId;
     private AccountType accountType;
-    private Date date;
+    private Date creationDate;
     private double openingBalance;
 }
