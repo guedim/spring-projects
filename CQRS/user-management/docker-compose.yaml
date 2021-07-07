@@ -58,6 +58,25 @@ services:
     networks:
       - springbankNet
 
+  # bank-cmd service
+  bank.cmd-service:
+    build:
+      context: ../bank-account/bankacc.cmd.api
+      dockerfile: Dockerfile
+    ports:
+      - "9091:9091"
+    restart: always
+    depends_on:
+      - user.oauth-service
+    links:
+      - mongodb
+      - axon-server
+      - mysql
+    env_file:
+      - .env
+    networks:
+      - springbankNet
+
   # user-oauth service
   user.oauth-service:
     build:
