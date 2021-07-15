@@ -34,3 +34,13 @@ spring:
           uri: http://${bank.cmd.service:localhost:9091}/api/v1/depositFunds/**
           predicates:
             - Path=/api/v1/depositFunds/**
+
+        - id: bankAccountCmdAPi-DepositFund
+          uri: http://${bank.cmd.service:localhost:9091}/api/v1/withdrawFunds/**
+          predicates:
+            - Path=/api/v1/withdrawFunds/**
+
+        - id: bankAccountCmdAPi-CloseAccount
+          uri: http://${bank.cmd.service:localhost:9091}/api/v1/closeBankAccount/**
+          predicates:
+            - Path=/api/v1/closeBankAccount/**
