@@ -71,5 +71,7 @@ public class AccountQueryHandlerImpl implements AccountQueryHandler {
         var response = bankAccounts != null && bankAccounts.size() > 0
                 ? new AccountLookupResponse("Successfully returned " + bankAccounts.size() + " bank accounts", bankAccounts)
                 : new AccountLookupResponse("No bank account were found");
+
+        return response;
     }
 }
