@@ -93,9 +93,9 @@ public class AccountLookupController {
         }
     }
 
-        @GetMapping(path = "/withBalance/{equalityType}/{balance}")
+    @GetMapping(path = "/withBalance/{equalityType}/{balance}")
     @PreAuthorize("hasAuthority('READ_PRIVILEGE')")
-    public ResponseEntity<AccountLookupResponse> getAccountByHolderId(@PathVariable(value = "equalityType") EqualityType equalityType,
+    public ResponseEntity<AccountLookupResponse> getAccountByEquality(@PathVariable(value = "equalityType") EqualityType equalityType,
                                                                       @PathVariable(value = "balance") double balance) {
 
         try {
