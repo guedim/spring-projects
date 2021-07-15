@@ -44,3 +44,8 @@ spring:
           uri: http://${bank.cmd.service:localhost:9091}/api/v1/closeBankAccount/**
           predicates:
             - Path=/api/v1/closeBankAccount/**
+
+        - id: bankAccQueryApi
+          uri: http://${user.query.service:localhost:9092}/api/v1/bankAccountLookup/**
+          predicates:
+            - Path=/api/v1/bankAccountLookup/**
