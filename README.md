@@ -19,6 +19,8 @@ Some spring sample projects with different tools or frameworks.
 
 - [SpringBoot grpc](./grpc-flix/).
 
+- [SpringBoot CRQS](./cqrs-axon/). with [AxonIQ](https://axoniq.io)
+
 
 
 ## Secutiry

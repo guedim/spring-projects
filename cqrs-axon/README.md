@@ -69,7 +69,7 @@ For create, start and attach all containers, please run next docker-compose comm
 
 ### Test services
 
-Finally, for running services import collection file [cqrs-axon.postman_collection.json]() into [Postman](https://www.postman.com/) application.
+Finally, for running services import collection file [cqrs-axon.postman_collection.json](https://github.com/guedim/spring-projects/blob/master/cqrs-axon/cqrs-axon.postman_collection.json) into [Postman](https://www.postman.com/) application.
 - Commands: Post Commands for user and bank services.
 - Query: Post Queries for user and bank services.
 - AuthServer: Authorization server for generate token. (Automatically called by Postman)
