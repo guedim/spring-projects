@@ -47,7 +47,7 @@ Bank Command API & Bank Command Query services
 - Move to the directory `cqrs-axon/user-management`
 
 ```
-cd spring-projects/CQRS/user-management
+cd spring-projects/cqrs-azon/user-management
 ```
 
 ### Build project & Docker images
@@ -69,7 +69,11 @@ For create, start and attach all containers, please run next docker-compose comm
 
 ### Test services
 
-Finally, ``aggregaror-service`` expose two methods
+Finally, for running services import collection file [cqrs-axon.postman_collection.json]() into [Postman](https://www.postman.com/) application.
+- Commands: Post Commands for user and bank services.
+- Query: Post Queries for user and bank services.
+- AuthServer: Authorization server for generate token. (Automatically called by Postman)
+- ApiGateway: Samples for Post Commands and Queries using api gateway project.
 
 
 # References

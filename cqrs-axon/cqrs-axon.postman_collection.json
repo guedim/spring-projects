@@ -1,0 +1,591 @@
+{
+	"info": {
+		"_postman_id": "2373214b-004d-4803-b1d5-32c232330f00",
+		"name": "cqrs-axon",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CQRS UserManagement",
+			"item": [
+				{
+					"name": "Command",
+					"item": [
+						{
+							"name": "RegisterUserCommand",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user\": {\n        \"firstName\": \"Yulyta\",\n        \"lastName\": \"Fuentes\",\n        \"emailAddress\": \"yulyta@fuentes.com\",\n        \"account\": {\n            \"username\": \"yulyta\",\n            \"password\": \"12345678\",\n            \"roles\": [\"READ_PRIVILEGE\"]\n        }   \n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8081/api/v1/registerUser",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"v1",
+										"registerUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateUserCommand",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user\": {\n        \"firstName\": \"Matico\",\n        \"lastName\": \"Guerrero\",\n        \"emailAddress\": \"matico@guerrero.com\",\n        \"account\": {\n            \"username\": \"matico\",\n            \"password\": \"12345678\",\n            \"roles\": [\"WRITE_PRIVILEGE\"]\n        }       \n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8081/api/v1/updateUser/ed17f1e8-5650-4252-a626-37a8b3da3793",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"v1",
+										"updateUser",
+										"ed17f1e8-5650-4252-a626-37a8b3da3793"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "RemoveUserCommand",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/api/v1/removeUser/ed17f1e8-5650-4252-a626-37a8b3da3793",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"v1",
+										"removeUser",
+										"ed17f1e8-5650-4252-a626-37a8b3da3793"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "OpenBankAccountCommand",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"accountHolderid\": \"3a1835fc-ef07-433a-bb94-ef91f72e7733\",\n    \"accountType\": \"CURRENT\",\n    \"openingBalance\": 1000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9091/api/v1/openBankAccount",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9091",
+									"path": [
+										"api",
+										"v1",
+										"openBankAccount"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DepositFundsCommand",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"amount\":5000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9091/api/v1/depositFunds/009f19b0-27ac-475a-a028-d61511185623",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9091",
+									"path": [
+										"api",
+										"v1",
+										"depositFunds",
+										"009f19b0-27ac-475a-a028-d61511185623"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "WithdrawFundsCommand",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"amount\":1000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9091/api/v1/withdrawFunds/07f3bcd9-25f5-4e6b-afcc-5e3e5cb372ab",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9091",
+									"path": [
+										"api",
+										"v1",
+										"withdrawFunds",
+										"07f3bcd9-25f5-4e6b-afcc-5e3e5cb372ab"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CloseBankAccountCommand",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"amount\":1000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9091/api/v1/closeBankAccount/07f3bcd9-25f5-4e6b-afcc-5e3e5cb372ab",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9091",
+									"path": [
+										"api",
+										"v1",
+										"closeBankAccount",
+										"07f3bcd9-25f5-4e6b-afcc-5e3e5cb372ab"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Query",
+					"item": [
+						{
+							"name": "FindAllUserQuery",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/v1/userLookup/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"v1",
+										"userLookup",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FindUserByIdQuery",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/v1/userLookup/byId/39103f89-00eb-44b6-b76f-1a7adde6310e",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"v1",
+										"userLookup",
+										"byId",
+										"39103f89-00eb-44b6-b76f-1a7adde6310e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SearchUsersQuery",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8082/api/v1/userLookup/byFilter/matico",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"v1",
+										"userLookup",
+										"byFilter",
+										"matico"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FindAllBankAccountsQuery",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9092/api/v1/bankAccountLookup/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9092",
+									"path": [
+										"api",
+										"v1",
+										"bankAccountLookup",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FindAllBankAccountByIdQuery",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9092/api/v1/bankAccountLookup/byId/009f19b0-27ac-475a-a028-d61511185623",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9092",
+									"path": [
+										"api",
+										"v1",
+										"bankAccountLookup",
+										"byId",
+										"009f19b0-27ac-475a-a028-d61511185623"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FindAllBankAccountByIdQuery Copy",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9092/api/v1/bankAccountLookup/withBalance/GREATER_THAN/1000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9092",
+									"path": [
+										"api",
+										"v1",
+										"bankAccountLookup",
+										"withBalance",
+										"GREATER_THAN",
+										"1000"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "AuthServer",
+					"item": [
+						{
+							"name": "GenerateToken",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic c3ByaW5nYmFua0NsaWVudDpzcHJpbmdiYW5rU2VjcmV0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "matico",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "12345678",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8084/oauth/token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ApiGateway",
+					"item": [
+						{
+							"name": "FindAllUserQuery",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:2000/api/v1/userLookup/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "2000",
+									"path": [
+										"api",
+										"v1",
+										"userLookup",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FindUserByIdQuery",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:2000/api/v1/userLookup/byId/3a1835fc-ef07-433a-bb94-ef91f72e7733",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "2000",
+									"path": [
+										"api",
+										"v1",
+										"userLookup",
+										"byId",
+										"3a1835fc-ef07-433a-bb94-ef91f72e7733"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "RegisterUserCommand",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user\": {\n        \"firstName\": \"Yulyta\",\n        \"lastName\": \"Fuentes\",\n        \"emailAddress\": \"yulyta@fuentes.com\",\n        \"account\": {\n            \"username\": \"yulyta\",\n            \"password\": \"12345678\",\n            \"roles\": [\"READ_PRIVILEGE\"]\n        }   \n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:2000/api/v1/registerUser",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "2000",
+									"path": [
+										"api",
+										"v1",
+										"registerUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "OpenBankAccountCommand",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"accountHolderid\": \"3a1835fc-ef07-433a-bb94-ef91f72e7733\",\n    \"accountType\": \"CURRENT\",\n    \"openingBalance\": 1000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:2000/api/v1/openBankAccount",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "2000",
+									"path": [
+										"api",
+										"v1",
+										"openBankAccount"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{bearer_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.sendRequest({",
+							"    url: 'http://localhost:8084/oauth/token',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Authorization': 'Basic c3ByaW5nYmFua0NsaWVudDpzcHJpbmdiYW5rU2VjcmV0',",
+							"        'Content-Type': 'application/x-www-form-urlencoded',",
+							"        'Accept': 'application/json'",
+							"    },",
+							"    body: {",
+							"          mode: 'urlencoded',",
+							"          urlencoded: [",
+							"            {key: \"grant_type\", value: \"password\", disabled: false},",
+							"            {key: \"username\", value: \"matico\", disabled: false},",
+							"            {key: \"password\", value: \"12345678\", disabled: false}",
+							"        ]",
+							"      }",
+							"}, function (err, res) {",
+							"",
+							"    pm.environment.set(\"bearer_token\", res.json().access_token);",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
