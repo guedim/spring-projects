@@ -1,6 +1,6 @@
 # User Manageemnt CQRS
 
-This project demonstrates on how to set-up [CQRS](https://martinfowler.com/bliki/CQRS.html) in a Spring Boot application.
+This project demonstrates on how to set-up [CQRS](https://martinfowler.com/bliki/CQRS.html) in a Spring Boot application using [AxonIQ](https://axoniq.io).
 
 This sample project is based on [Master Spring Boot Microservices with CQRS and Event Sourcing](https://www.udemy.com/course/master-spring-boot-microservices-with-cqrs-event-sourcing/) udemy course.
 
@@ -44,7 +44,7 @@ Bank Command API & Bank Command Query services
  git clone https://github.com/guedim/spring-projects.git
 ```
 
-- Move to the directory `CQRS/user-management`
+- Move to the directory `cqrs-axon/user-management`
 
 ```
 cd spring-projects/CQRS/user-management
