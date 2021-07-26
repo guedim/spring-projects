@@ -80,3 +80,4 @@ Finally, for running services import collection file [cqrs-axon.postman_collecti
 
 - https://martinfowler.com/bliki/CQRS.html
 - https://www.udemy.com/course/master-spring-boot-microservices-with-cqrs-event-sourcing/
+- https://www.baeldung.com/axon-cqrs-event-sourcing
