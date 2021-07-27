@@ -12,6 +12,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class WiremockApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(WiremockApplication.class, args);
 	}
 

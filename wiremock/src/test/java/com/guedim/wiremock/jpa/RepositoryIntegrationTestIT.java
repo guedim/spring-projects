@@ -129,6 +129,7 @@ public class RepositoryIntegrationTestIT {
 			.withPassword("demopassword").withUsername("demouser");
 
 	protected static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+
 		@Override
 		public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
 			TestPropertyValues
@@ -136,7 +137,6 @@ public class RepositoryIntegrationTestIT {
 							"spring.datasource.username=" + postgreSQLContainer.getUsername(),
 							"spring.datasource.password=" + postgreSQLContainer.getPassword())
 					.applyTo(configurableApplicationContext);
-
 		}
 	}
 }
