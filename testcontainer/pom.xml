@@ -23,7 +23,7 @@
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
 
         <jupiter.version>5.5.2</jupiter.version>
-        <testcontainers.version>1.13.0</testcontainers.version>
+        <testcontainers.version>1.16.0</testcontainers.version>
 
         <docker-maven-plugin.version>1.2.0</docker-maven-plugin.version>
     </properties>
