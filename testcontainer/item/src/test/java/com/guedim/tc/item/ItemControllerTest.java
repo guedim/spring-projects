@@ -84,6 +84,8 @@ public class ItemControllerTest {
         ItemResponse item = controller.get(response.getId());
         assertThat(item.getCategory(), equalTo("T-shirt"));
         assertThat(item.getUser().getName(), equalTo("guedim"));
+
+        mockServer.verify();
     }
 
     @SneakyThrows
