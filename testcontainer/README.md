@@ -17,7 +17,7 @@ There are 2 services in this demo:
 
 <br/>
 
-![Services](services.jpg "Services flow")
+![Services](services.png "Services flow")
 
 
 Each service is a Spring Boot project which uses non-mocked DB started by ``TestContainers`` library.  
