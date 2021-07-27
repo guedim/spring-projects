@@ -4,6 +4,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.isEmptyString;
 
+import com.guedim.model.User;
+import com.guedim.model.UserCreateResponse;
 import org.hamcrest.core.IsNot;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
@@ -25,7 +27,8 @@ import com.google.common.collect.ImmutableMap;
 import lombok.SneakyThrows;
 
 @Testcontainers
-public class UserIntegrationTest {
+public class UserIntegrationTest extends AbstractTestClass {
+
     private static final Network network = Network.newNetwork();
 
     @Container
@@ -65,15 +68,5 @@ public class UserIntegrationTest {
         User userResponse = new RestTemplate().getForEntity(userUrl + "/" + idResponse.getId(), User.class).getBody();
         assertThat(userResponse.getId(), equalTo(idResponse.getId()));
         assertThat(userResponse.getName(), equalTo("guedim"));
-    }
-
-    @SneakyThrows
-    private <R> R post(String url, Object req, Class<R> clazz) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-
-        HttpEntity<String> request = new HttpEntity<>(new ObjectMapper().writeValueAsString(req), headers);
-        ResponseEntity<R> response = new RestTemplate().postForEntity(url, request, clazz);
-        return response.getBody();
     }
 }

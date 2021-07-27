@@ -9,6 +9,7 @@ import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
 import java.time.Duration;
 
 public class ItemContainer extends GenericContainer<ItemContainer> {
+
     public ItemContainer(Network network, int port) {
         super("guedim-tc-demo/item:latest");
         addExposedPorts(port);

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ParameterResolver;
 import com.guedim.ext.NetworkHolder;
 
 public class UserExtension implements BeforeAllCallback, AfterAllCallback, ParameterResolver {
+
     private UserContainer userContainer = new UserContainer(NetworkHolder.network(), 8083);
 
     @Override

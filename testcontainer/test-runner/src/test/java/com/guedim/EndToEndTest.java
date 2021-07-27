@@ -1,7 +1,7 @@
 package com.guedim;
 
+import com.guedim.model.*;
 import lombok.SneakyThrows;
-import lombok.Value;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -26,10 +26,11 @@ import static org.hamcrest.core.IsNot.not;
 @Postgres
 @UserService
 @ItemService
-class EndToEndTest {
+public class EndToEndTest extends AbstractTestClass {
 
     @Test
     void testFlow(UserInfo userInfo, ItemInfo itemInfo) {
+
         //create user
         User user = new User("", "guedim", "guedim@gmail.com");
         String userUrl = "http://localhost:" + userInfo.getPort() + "/users";
@@ -47,50 +48,6 @@ class EndToEndTest {
         assertThat(itemResponse.getCategory(), equalTo("T-shirt"));
         assertThat(itemResponse.getUser().getName(), equalTo("guedim"));
     }
-
-
-    @SneakyThrows
-    private <R> R post(String url, Object req, Class<R> clazz) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-
-        HttpEntity<String> request = new HttpEntity<>(new ObjectMapper().writeValueAsString(req), headers);
-        ResponseEntity<R> response = new RestTemplate().postForEntity(url, request, clazz);
-        return response.getBody();
-    }
-
 }
 
 
-@Value
-class User {
-    String id;
-    String name;
-    String email;
-}
-
-@Value
-class UserCreateResponse {
-    String id;
-}
-
-@Value
-class Item {
-    String id;
-    String category;
-    String desc;
-    String userId;
-}
-
-@Value
-class ItemCreateResponse {
-    String id;
-}
-
-@Value
-class ItemResponse {
-    String id;
-    String category;
-    String desc;
-    User user;
-}
