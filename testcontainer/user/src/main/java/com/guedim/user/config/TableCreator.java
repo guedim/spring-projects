@@ -1,4 +1,4 @@
-package com.guedim.user;
+package com.guedim.user.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

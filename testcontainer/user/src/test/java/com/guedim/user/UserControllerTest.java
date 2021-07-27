@@ -1,5 +1,8 @@
 package com.guedim.user;
 
+import com.guedim.user.controller.UserController;
+import com.guedim.user.model.User;
+import com.guedim.user.model.UserCreateResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,14 +15,8 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import com.guedim.user.User;
-import com.guedim.user.UserApplication;
-import com.guedim.user.UserCreateResponse;
-
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.isEmptyString;
-import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -28,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class UserControllerTest {
 
     @Autowired
-    private UserApplication.UserController controller;
+    private UserController controller;
 
     @Container
     private static final PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:9.6.15")
@@ -63,6 +60,4 @@ public class UserControllerTest {
         assertThrows(DuplicateKeyException.class, () ->
                 controller.create(new User("", "Matias", "matias@gmail.com")));
     }
-
-
 }
