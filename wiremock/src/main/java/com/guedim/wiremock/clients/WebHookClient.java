@@ -22,8 +22,7 @@ public class WebHookClient {
 	}
 
 	public Integer sendWebHook(Integer merchantId, String url, FraudState fraudState) {
-		
-		
+
 		WebHookRequest webHookRequest = WebHookRequest.builder().merchantId(merchantId).state(fraudState).build();
 				
 		HttpEntity<WebHookRequest> httpEntity = new HttpEntity<>(webHookRequest);
