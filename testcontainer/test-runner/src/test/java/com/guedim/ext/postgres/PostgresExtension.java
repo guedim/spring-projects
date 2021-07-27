@@ -9,6 +9,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import com.guedim.ext.NetworkHolder;
 
 public class PostgresExtension implements BeforeAllCallback, AfterAllCallback {
+
     private final GenericContainer container = new PostgreSQLContainer("postgres:9.6.15")
             .withDatabaseName("users")
             .withUsername("postgres")

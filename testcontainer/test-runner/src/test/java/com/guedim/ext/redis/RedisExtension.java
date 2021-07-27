@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import com.guedim.ext.NetworkHolder;
 
 public class RedisExtension implements BeforeAllCallback, AfterAllCallback {
+
     private RedisContainer redisContainer = new RedisContainer(NetworkHolder.network(), 6379);
 
     @Override

@@ -7,6 +7,7 @@ import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.HostPortWaitStrategy;
 
 public class UserContainer extends GenericContainer<UserContainer> {
+
     public UserContainer(Network network, int port) {
         super("guedim-tc-demo/user:latest");
         addExposedPorts(port);
