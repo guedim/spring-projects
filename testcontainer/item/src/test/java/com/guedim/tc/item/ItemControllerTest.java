@@ -1,11 +1,12 @@
 package com.guedim.tc.item;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.guedim.tc.item.Item;
-import com.guedim.tc.item.ItemApplication;
-import com.guedim.tc.item.ItemCreateResponse;
-import com.guedim.tc.item.ItemResponse;
-import com.guedim.tc.item.User;
+import com.guedim.tc.item.config.UserProperties;
+import com.guedim.tc.item.controller.ItemController;
+import com.guedim.tc.item.model.Item;
+import com.guedim.tc.item.model.ItemCreateResponse;
+import com.guedim.tc.item.model.ItemResponse;
+import com.guedim.tc.item.model.User;
 
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,10 +57,14 @@ public class ItemControllerTest {
     }
 
     @Autowired
-    private ItemApplication.ItemController controller;
+    private ItemController controller;
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private UserProperties userProps;
+
 
     private MockRestServiceServer mockServer;
 
@@ -84,13 +89,14 @@ public class ItemControllerTest {
     @SneakyThrows
     private void mockUser(String id) {
         User user = new User(id, "guedim", "guedim@gmail.com");
+        String url = "http://" + userProps.getHost() + ":" + userProps.getPort();
+
         mockServer.expect(ExpectedCount.once(),
-                requestTo(new URI("http://localhost:8083/users/" + id)))
+                requestTo(new URI(url + "/users/" + id)))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(new ObjectMapper().writeValueAsString(user))
                 );
     }
-
 }
