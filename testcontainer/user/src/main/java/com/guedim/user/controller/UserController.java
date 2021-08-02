@@ -1,5 +1,6 @@
 package com.guedim.user.controller;
 
+import com.guedim.user.config.KafkaProducer;
 import com.guedim.user.model.User;
 import com.guedim.user.model.UserCreateResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,20 @@ public class UserController {
         @Autowired
         private JdbcTemplate jdbcTemplate;
 
+        @Autowired
+        private KafkaProducer producer;
+
         @PostMapping
         public UserCreateResponse create(@RequestBody User request) {
             String id = UUID.randomUUID().toString();
+
+            // Postgres dependency
             jdbcTemplate.update("INSERT INTO users (id, name, email) VALUES (?, ?, ?)",
                     id, request.getName(), request.getEmail());
+
+            // Kafka Dependency
+            producer.send(request.toString());
+
             return new UserCreateResponse(id);
         }
 

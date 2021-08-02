@@ -5,3 +5,12 @@ spring:
     url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/users}
     username: ${POSTGRES_USERNAME:postgres}
     password: ${POSTGRES_PASSWORD:}
+
+  kafka:
+    bootstrapAddress: localhost:9092
+    consumer:
+      auto-offset-reset: earliest
+      group-id: guedim
+
+user:
+  topic: user-topic
