@@ -17,14 +17,17 @@ public class ItemContainer extends GenericContainer<ItemContainer> {
         withNetworkAliases("item-alias");
 
         addEnv("SERVER_PORT", port + "");
+
         addEnv("USER_HOST", "user-alias");
+        addEnv("user-service.host", "user-alias");
         addEnv("USER_PORT", "8083");
+        addEnv("user-service.port", "8083");
 
         addEnv("REDIS_HOST", "redis-alias");
         addEnv("REDIS_PORT", "6379");
 
         HttpWaitStrategy httpWaitStrategy = new HttpWaitStrategy();
-        httpWaitStrategy.withStartupTimeout(Duration.ofMinutes(3));
+        httpWaitStrategy.withStartupTimeout(Duration.ofMinutes(1));
         waitingFor(httpWaitStrategy.forPath("/actuator/health").forStatusCode(200));
 
         withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger(" --- item --- ")));
