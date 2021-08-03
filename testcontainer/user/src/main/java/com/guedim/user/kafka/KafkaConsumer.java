@@ -1,4 +1,4 @@
-package com.guedim.user.config;
+package com.guedim.user.kafka;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -14,10 +14,10 @@ public class KafkaConsumer {
     private CountDownLatch latch = new CountDownLatch(1);
     private String payload = null;
 
-    @KafkaListener(topics = "${user.topic}")
-    public void receive(ConsumerRecord<?, ?> consumerRecord) {
-        log.info("received payload='{}'", consumerRecord.toString());
-        setPayload(consumerRecord.toString());
+    @KafkaListener(topics = "${user.topic}", groupId = "${user.group}")
+    public void receive(String payload) {
+        log.info("received payload='{}'", payload);
+        setPayload(payload);
         latch.countDown();
     }
 
@@ -28,6 +28,7 @@ public class KafkaConsumer {
     private void setPayload(String payload) {
         this.payload = payload;
     }
+
     public String getPayload() {
         return payload;
     }

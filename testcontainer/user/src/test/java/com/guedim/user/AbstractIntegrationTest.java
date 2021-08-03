@@ -1,11 +1,11 @@
 package com.guedim.user;
 
 
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -15,7 +15,6 @@ import org.testcontainers.utility.DockerImageName;
 
 @SpringBootTest
 @ContextConfiguration(initializers = {AbstractIntegrationTest.PropertiesInitializer.class})
-@Import(KafkaTestContainersConfiguration.class)
 @Testcontainers
 public abstract  class AbstractIntegrationTest {
 
@@ -34,7 +33,9 @@ public abstract  class AbstractIntegrationTest {
             TestPropertyValues.of(
                     "spring.datasource.url=" + postgres.getJdbcUrl(),
                     "spring.datasource.username=" + postgres.getUsername(),
-                    "spring.datasource.password=" + postgres.getPassword()
+                    "spring.datasource.password=" + postgres.getPassword(),
+                    ProducerConfig.BOOTSTRAP_SERVERS_CONFIG + "=" + kafka.getBootstrapServers(),
+                    "spring.kafka.bootstrapAddress="  + kafka.getBootstrapServers()
             ).applyTo(configurableApplicationContext.getEnvironment());
         }
     }

@@ -1,8 +1,8 @@
 package com.guedim.user;
 
 
-import com.guedim.user.config.KafkaConsumer;
-import com.guedim.user.config.KafkaProducer;
+import com.guedim.user.kafka.KafkaConsumer;
+import com.guedim.user.kafka.KafkaProducer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

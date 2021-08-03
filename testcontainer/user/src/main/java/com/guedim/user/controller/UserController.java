@@ -1,6 +1,6 @@
 package com.guedim.user.controller;
 
-import com.guedim.user.config.KafkaProducer;
+import com.guedim.user.kafka.KafkaProducer;
 import com.guedim.user.model.User;
 import com.guedim.user.model.UserCreateResponse;
 import org.springframework.beans.factory.annotation.Autowired;

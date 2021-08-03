@@ -6,22 +6,31 @@ import com.guedim.model.UserCreateResponse;
 import org.hamcrest.core.IsNot;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.client.RestTemplate;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.isEmptyString;
 
 @Testcontainers
+@EnableAutoConfiguration
 public class UserIntegrationTest extends AbstractTestClass {
 
     private static final Network network = Network.newNetwork();
+
+    @Container
+    protected static final KafkaContainer kafka  = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:5.4.3"))
+            .withNetwork(network)
+            .withNetworkAliases("kafka-alias");
 
     @Container
     private static final GenericContainer postgres = new PostgreSQLContainer("postgres:9.6.15")

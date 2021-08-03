@@ -14,3 +14,4 @@ spring:
 
 user:
   topic: user-topic
+  group: user-group

@@ -1,6 +1,6 @@
 package com.guedim.user;
 
-import com.guedim.user.config.KafkaConsumer;
+import com.guedim.user.kafka.KafkaConsumer;
 import com.guedim.user.controller.UserController;
 import com.guedim.user.model.User;
 import com.guedim.user.model.UserCreateResponse;
@@ -35,7 +35,8 @@ public class UserControllerTest extends AbstractIntegrationTest {
         // Kafka asserts
         consumer.getLatch().await(10000, TimeUnit.MILLISECONDS);
         assertThat(consumer.getLatch().getCount(), equalTo(0L));
-        assertThat(consumer.getPayload(), containsString("user-topic"));
+        assertThat(consumer.getPayload(), containsString("guedim"));
+        assertThat(consumer.getPayload(), containsString("guedim@gmail.com"));
     }
 
     @Test
