@@ -7,7 +7,6 @@ import com.guedim.tc.item.model.Item;
 import com.guedim.tc.item.model.ItemCreateResponse;
 import com.guedim.tc.item.model.ItemResponse;
 import com.guedim.tc.item.model.User;
-
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,9 +30,7 @@ import java.net.URI;
 import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.isEmptyString;
-import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
@@ -64,7 +61,6 @@ public class ItemControllerTest {
 
     @Autowired
     private UserProperties userProps;
-
 
     private MockRestServiceServer mockServer;
 

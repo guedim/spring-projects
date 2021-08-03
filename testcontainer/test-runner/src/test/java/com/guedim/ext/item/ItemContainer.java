@@ -24,7 +24,7 @@ public class ItemContainer extends GenericContainer<ItemContainer> {
         addEnv("REDIS_PORT", "6379");
 
         HttpWaitStrategy httpWaitStrategy = new HttpWaitStrategy();
-        httpWaitStrategy.withStartupTimeout(Duration.ofMinutes(1));
+        httpWaitStrategy.withStartupTimeout(Duration.ofMinutes(3));
         waitingFor(httpWaitStrategy.forPath("/actuator/health").forStatusCode(200));
 
         withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger(" --- item --- ")));

@@ -1,13 +1,7 @@
 package com.guedim.ext.user;
 
-import org.junit.jupiter.api.extension.AfterAllCallback;
-import org.junit.jupiter.api.extension.BeforeAllCallback;
-import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.extension.ParameterContext;
-import org.junit.jupiter.api.extension.ParameterResolutionException;
-import org.junit.jupiter.api.extension.ParameterResolver;
-
 import com.guedim.ext.NetworkHolder;
+import org.junit.jupiter.api.extension.*;
 
 public class UserExtension implements BeforeAllCallback, AfterAllCallback, ParameterResolver {
 

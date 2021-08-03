@@ -5,6 +5,6 @@ spring:
     host: ${REDIS_HOST:localhost}
     port: ${REDIS_PORT:6379}
 
-user:
+user-service:
   host: ${USER_HOST:localhost}
   port: ${REDIS_PORT:8083}

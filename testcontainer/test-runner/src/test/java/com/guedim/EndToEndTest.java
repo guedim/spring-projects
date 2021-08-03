@@ -1,27 +1,22 @@
 package com.guedim;
 
-import com.guedim.model.*;
-import lombok.SneakyThrows;
-import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.guedim.ext.item.ItemInfo;
 import com.guedim.ext.item.ItemService;
+import com.guedim.ext.kafka.Kafka;
 import com.guedim.ext.postgres.Postgres;
 import com.guedim.ext.redis.Redis;
 import com.guedim.ext.user.UserInfo;
 import com.guedim.ext.user.UserService;
+import com.guedim.model.*;
+import org.junit.jupiter.api.Test;
+import org.springframework.web.client.RestTemplate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.hamcrest.core.IsNot.not;
 
+@Kafka
 @Redis
 @Postgres
 @UserService
@@ -29,13 +24,16 @@ import static org.hamcrest.core.IsNot.not;
 public class EndToEndTest extends AbstractTestClass {
 
     @Test
-    void testFlow(UserInfo userInfo, ItemInfo itemInfo) {
+    void testFlow(UserInfo userInfo, ItemInfo itemInfo) throws InterruptedException {
 
         //create user
         User user = new User("", "guedim", "guedim@gmail.com");
         String userUrl = "http://localhost:" + userInfo.getPort() + "/users";
         UserCreateResponse userCreateResponse = post(userUrl, user, UserCreateResponse.class);
         assertThat(userCreateResponse.getId(), not(isEmptyString()));
+
+
+        Thread.sleep(60000L);
 
         //create item for user above
         Item item = new Item("", "T-shirt", "XS", userCreateResponse.getId());

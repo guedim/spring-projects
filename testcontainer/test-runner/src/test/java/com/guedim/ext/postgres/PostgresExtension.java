@@ -1,12 +1,11 @@
 package com.guedim.ext.postgres;
 
+import com.guedim.ext.NetworkHolder;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
-
-import com.guedim.ext.NetworkHolder;
 
 public class PostgresExtension implements BeforeAllCallback, AfterAllCallback {
 

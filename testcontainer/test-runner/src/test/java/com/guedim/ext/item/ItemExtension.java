@@ -1,13 +1,7 @@
 package com.guedim.ext.item;
 
-import org.junit.jupiter.api.extension.AfterAllCallback;
-import org.junit.jupiter.api.extension.BeforeAllCallback;
-import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.extension.ParameterContext;
-import org.junit.jupiter.api.extension.ParameterResolutionException;
-import org.junit.jupiter.api.extension.ParameterResolver;
-
 import com.guedim.ext.NetworkHolder;
+import org.junit.jupiter.api.extension.*;
 
 public class ItemExtension implements BeforeAllCallback, AfterAllCallback, ParameterResolver {
     private ItemContainer itemContainer = new ItemContainer(NetworkHolder.network(), 8084);

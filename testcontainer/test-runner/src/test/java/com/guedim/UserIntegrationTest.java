@@ -1,35 +1,38 @@
 package com.guedim;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.isEmptyString;
-
+import com.google.common.collect.ImmutableMap;
 import com.guedim.model.User;
 import com.guedim.model.UserCreateResponse;
 import org.hamcrest.core.IsNot;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.client.RestTemplate;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
+import org.testcontainers.containers.wait.strategy.HostPortWaitStrategy;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.ImmutableMap;
-
-import lombok.SneakyThrows;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.isEmptyString;
 
 @Testcontainers
+@EnableAutoConfiguration
 public class UserIntegrationTest extends AbstractTestClass {
 
     private static final Network network = Network.newNetwork();
+
+    @Container
+    protected static final KafkaContainer kafka  = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:5.4.3"))
+            .withNetwork(network)
+            .withNetworkAliases("kafka-alias")
+            .waitingFor(new HostPortWaitStrategy());
 
     @Container
     private static final GenericContainer postgres = new PostgreSQLContainer("postgres:9.6.15")
@@ -48,8 +51,10 @@ public class UserIntegrationTest extends AbstractTestClass {
                     "SERVER_PORT", "8083",
                     "POSTGRES_URL", "jdbc:postgresql://postgres-alias:5432/users",
                     "POSTGRES_USERNAME", "postgres",
-                    "POSTGRES_PASSWORD", "password"
-            ))
+                    "POSTGRES_PASSWORD", "password",
+                    "spring.kafka.bootstrapAddress", "kafka-alias:9092")
+            )
+            .dependsOn(kafka)
             .dependsOn(postgres)
             .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger(" --- user --- ")));
 
