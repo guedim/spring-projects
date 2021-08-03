@@ -32,9 +32,6 @@ public class EndToEndTest extends AbstractTestClass {
         UserCreateResponse userCreateResponse = post(userUrl, user, UserCreateResponse.class);
         assertThat(userCreateResponse.getId(), not(isEmptyString()));
 
-
-        Thread.sleep(60000L);
-
         //create item for user above
         Item item = new Item("", "T-shirt", "XS", userCreateResponse.getId());
         String itemUrl = "http://localhost:" + itemInfo.getPort() + "/items";

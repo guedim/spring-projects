@@ -23,7 +23,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.isEmptyString;
 
 @Testcontainers
-@EnableAutoConfiguration
 public class UserIntegrationTest extends AbstractTestClass {
 
     private static final Network network = Network.newNetwork();
