@@ -7,7 +7,7 @@ spring:
     password: ${POSTGRES_PASSWORD:}
 
   kafka:
-    bootstrapAddress: localhost:9092
+    bootstrapAddress: ${KAFKA_URL:localhost:9092}
     consumer:
       auto-offset-reset: earliest
       group-id: guedim

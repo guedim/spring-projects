@@ -1,7 +1,7 @@
 package com.guedim.user;
 
-import com.guedim.user.kafka.KafkaConsumer;
 import com.guedim.user.controller.UserController;
+import com.guedim.user.kafka.KafkaConsumer;
 import com.guedim.user.model.User;
 import com.guedim.user.model.UserCreateResponse;
 import org.junit.jupiter.api.Test;

@@ -15,10 +15,14 @@ public class UserContainer extends GenericContainer<UserContainer> {
         withNetworkAliases("user-alias");
         waitingFor(new HostPortWaitStrategy());
 
+        // Postgres
         addEnv("SERVER_PORT", port + "");
         addEnv("POSTGRES_URL", "jdbc:postgresql://postgres-alias:5432/users");
         addEnv("POSTGRES_USERNAME", "postgres");
         addEnv("POSTGRES_PASSWORD", "password");
+
+        // Kafka
+        addEnv("spring.kafka.bootstrapAddress", "kafka-alias:9092");
 
         withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger(" --- user --- ")));
     }
