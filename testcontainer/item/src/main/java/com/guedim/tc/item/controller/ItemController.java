@@ -1,7 +1,6 @@
 package com.guedim.tc.item.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.guedim.tc.item.ItemApplication;
 import com.guedim.tc.item.config.UserProperties;
 import com.guedim.tc.item.model.Item;
 import com.guedim.tc.item.model.ItemCreateResponse;
@@ -10,7 +9,6 @@ import com.guedim.tc.item.model.User;
 import io.lettuce.core.api.sync.RedisCommands;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

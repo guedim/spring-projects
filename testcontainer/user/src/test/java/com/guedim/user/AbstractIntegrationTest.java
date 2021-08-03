@@ -14,10 +14,10 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
 @SpringBootTest
-@ContextConfiguration(initializers = {AbtractIntegrationTest.PropertiesInitializer.class})
+@ContextConfiguration(initializers = {AbstractIntegrationTest.PropertiesInitializer.class})
 @Import(KafkaTestContainersConfiguration.class)
 @Testcontainers
-public abstract  class AbtractIntegrationTest {
+public abstract  class AbstractIntegrationTest {
 
     @Container
     private static final PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:9.6.15")
@@ -26,7 +26,7 @@ public abstract  class AbtractIntegrationTest {
             .withPassword("password");
 
     @Container
-    private static final KafkaContainer kafka  = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:5.4.3"));
+    protected static final KafkaContainer kafka  = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:5.4.3"));
 
 
     static class PropertiesInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
@@ -38,5 +38,4 @@ public abstract  class AbtractIntegrationTest {
             ).applyTo(configurableApplicationContext.getEnvironment());
         }
     }
-
 }

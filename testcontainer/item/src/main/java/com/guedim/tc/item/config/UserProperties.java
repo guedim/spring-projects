@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "user")
+@ConfigurationProperties(prefix = "user-service")
 public class UserProperties {
     String host;
     String port;

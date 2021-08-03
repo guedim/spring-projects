@@ -1,18 +1,11 @@
 package com.guedim;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.isEmptyString;
-
+import com.google.common.collect.ImmutableMap;
 import com.guedim.model.User;
 import com.guedim.model.UserCreateResponse;
 import org.hamcrest.core.IsNot;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
@@ -21,10 +14,9 @@ import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.ImmutableMap;
-
-import lombok.SneakyThrows;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.isEmptyString;
 
 @Testcontainers
 public class UserIntegrationTest extends AbstractTestClass {

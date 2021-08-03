@@ -1,10 +1,9 @@
 package com.guedim.ext.redis;
 
+import com.guedim.ext.NetworkHolder;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
-
-import com.guedim.ext.NetworkHolder;
 
 public class RedisExtension implements BeforeAllCallback, AfterAllCallback {
 
