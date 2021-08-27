@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.containers.wait.strategy.HostPortWaitStrategy;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -43,7 +44,8 @@ public abstract class AbtractIntegrationTestIT {
 
 	@Container
 	private static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>().withDatabaseName("demo")
-			.withPassword("demopassword").withUsername("demouser");
+			.withPassword("demopassword").withUsername("demouser")
+			.waitingFor(new HostPortWaitStrategy());
 
 	private static WireMockServer wireMockServer = new WireMockServer(1080);
 

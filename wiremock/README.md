@@ -212,3 +212,5 @@ mvn verify
 - https://robintegg.com/2019/02/24/testing-spring-boot-applications-with-testcontainers-and-selenium-webdriver-part-three
 
 - https://blog.sandra-parsick.de/2020/05/21/using-testcontainers-in-spring-boot-tests-for-database-integration-tests/
+
+- https://blog.sebastian-daschner.com/entries/complex-project-setups-testcontainers

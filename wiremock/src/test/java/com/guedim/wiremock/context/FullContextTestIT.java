@@ -37,6 +37,4 @@ public class FullContextTestIT extends AbtractIntegrationTestIT {
 		Assert.notNull(response.getProcessId(), "processId must not be null");
 		Assert.state(response.getState().equals(ProcessRecodState.NOTIFIED),"process state must be NOTIFIED");
 	}
-	
-	
 }

@@ -6,6 +6,7 @@ import com.guedim.user.config.KafkaProducerConfig;
 import com.guedim.user.config.KafkaTopicConfig;
 import com.guedim.user.kafka.KafkaConsumer;
 import com.guedim.user.kafka.KafkaProducer;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
@@ -35,7 +36,7 @@ public class EmbeddedKafkaIntegrationTest {
     @Autowired
     private KafkaProducer producer;
 
-    //@Test
+    @Test
     public void embeddedKafkaBroker_Producer_Consumer_Test()
             throws Exception {
         producer.send("Sending with simple KafkaProducer");

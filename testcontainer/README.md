@@ -65,7 +65,8 @@ mvn test
 
 # References
 
-https://dzone.com/articles/easy-integration-testing-with-testcontainers
-https://www.baeldung.com/spring-boot-kafka-testing
-https://www.testcontainers.org
-https://reflectoring.io/spring-boot-test/
+- https://dzone.com/articles/easy-integration-testing-with-testcontainers
+- https://www.baeldung.com/spring-boot-kafka-testing
+- https://www.testcontainers.org
+- https://reflectoring.io/spring-boot-test/
+- https://blog.sebastian-daschner.com/entries/complex-project-setups-testcontainers
